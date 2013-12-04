@@ -1,0 +1,19 @@
+Package: frog-trap
+Type: Package
+Title: Draft manuscript and code on ecological traps
+Version: 0.1
+Date: 2013-12-04
+Author: Rosemary Hartman <rkhartman@ucdavis.edu>,
+        Noam Ross <noam.ross@gmail.com>
+Maintainer: Rosemary Hartman <rkhartman@ucdavis.edu>,
+            Noam Ross <noam.ross@gmail.com>
+Description: Very much in draft form.
+License: CC-0
+Imports:
+    popbio,
+    foreach,
+    doParallel,
+    plyr,
+    ggplot2,
+    compiler,
+    reshape2
