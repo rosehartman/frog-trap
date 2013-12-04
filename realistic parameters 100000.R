@@ -6,23 +6,12 @@ library(plyr)
 library(foreach)
 library(doParallel)
 registerDoParallel(cores=2)
-# function to calculate extinction
-Ex = function(p, pred2) {
-  Runmat = PatchDDstoch(p, M, states, fx, n0, npatch, nstg, tf=500, P, pred=pred2)[1,]
-  if (Runmat[500]==0) ex = 1 else ex = 0
-  return(ex)
-}
+#load the functions I have defined to run this puppy
+source('~/Desktop/frog-trap/R/foo.R')
+source('~/Desktop/frog-trap/R/lambda two stage.R')
+source('~/Desktop/frog-trap/R/Ex1.R')
 
-
-
-# function to calculate stochastic lambdas
-foo2 = function(p, pred) {
-  lams = PatchAstoch2(p, states, fx, n0, npatch, nstg, tf, P, pred)
-  avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
-  
-}
-
-
+# define all the variables
 npatch = 2 # number of patches
 n0 = c(1000,20,1000,20) # initial populations
 fx = c(150,150) # fecundity vector
@@ -67,20 +56,7 @@ r2.0 = log(r2.0) # take the log to make it comparable to stochastic rates
 return(r2.0) 
 })
 
-# probability of extinction in 500 years
-tf=500
-resultsEx = ldply(pred, function(pred2){
-ex.0 = replicate(500, (foreach(i=1:21, .combine=c) %dopar% Ex(p[i], pred2)), simplify=T)
-ex2.0 = rowSums(ex.0)/ncol(ex.0)
-return(ex2.0)
-})
-
-resultsEx2 = ldply(pred, function(pred2){
-  ex.0 = replicate(100, (foreach(i=1:21, .combine=c) %dopar% Ex(p[i], pred2)), simplify=T)
-  ex2.0 = rowSums(ex.0)/ncol(ex.0)
-  return(ex2.0)
-})
-                   
+# Organize the output and save it                   
 predSt = c("0s", ".2s", ".4s", ".6s", ".8s", "1s")
 allresults = data.frame(t(rbind(resultsdet, resultsStoch, p)))
 names(allresults) = c(pred,predSt,"p")
@@ -93,6 +69,7 @@ minpred = as.numeric(allresults[1,7:12])
 maxp = c(1:6)
 for (i in 7:12) maxp[i-6] = allresults[which(allresults[,i]==maxpred[(i-6)]),13]
 
+# organize it and plot it
 summarypred = data.frame(levels = pred, maxpred = maxpred, maxp = maxp, diffpred=(maxpred-minpred))
 plot(summarypred$levels, summarypred$maxpred, type="l")
 
@@ -120,6 +97,16 @@ e2 = e2+geom_line() + labs(y="population growth rate log(lambda)", x="proportion
   scale_y_continuous(limits=c(-.5, .5)) 
 e2 
 
+# calculate probability of extinction in 500 years for the different predation rates
+tf=500
+resultsEx = ldply(pred, function(pred2){
+  ex.0 = replicate(500, (foreach(i=1:21, .combine=c) %dopar% Ex(p[i], pred2)), simplify=T)
+  ex2.0 = rowSums(ex.0)/ncol(ex.0)
+  return(ex2.0)
+})
+
+
+# reshape the extinction probabilities data frame
 names(resultsEx) = p
 resultsEx2 = cbind(pred, resultsEx)
 resultsEx2 = melt(resultsEx2 ,id.vars="pred", variable_name="p")

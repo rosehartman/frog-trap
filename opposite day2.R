@@ -1,59 +1,6 @@
 # Now lets have predation effect the juveniles but have the adults be
 # the migratory life stage.
-
-Patchopp <- function(p, s1=s1, J=J, fx=fx,  pred=pred) {
-  ## p is the proportion of adults migrating to the high predation patch.
-  
-  A <- matrix(c(0, fx[1], 0, 0, 
-                J[1]*pred,s1[1]*p,0,s1[2]*p, 
-                0, 0, 0,fx[2],  
-                0,s1[2]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
-  
-  return(lambda(A))    
-  
-}
-
-PatchAstochopp = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
-  # start all patches off with a good year
-  L= numeric(tf)
-  state = c(1,1)
-  # k= number of possible states
-  k=dim(P)[1]
-  
-  Nt = n0 # starting population 
-  
-  for(i in 1:(tf-1)) {
-    # determine the environmental state for each patch
-    state[1] = sample(1:k,size=1, prob = P[,state[1]])
-    state[2] = sample(1:k,size=1, prob = P[,state[2]])
-    
-    # pull out the parameters so you can put them in a matrix
-    st = c(states[state[1],], states[state[2],])
-    J = st[c(1, 3)]
-    s1= st[c(2, 4)]
-    
-    A <- matrix(c(0, fx[1], 0, 0, 
-                  J[1]*pred,s1[1]*p,0,s1[2]*p, 
-                  0, 0, 0,fx[2],  
-                  0,s1[2]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
-    
-    L[i] = (lambda(A))
-    
-    Nt= A %*% Nt
-    # run model through time 
-    # if (sum(Nt)<0.001) Nt = rep(0, (nstg*npatch))
-  }
-  #  NAds = Nt[3,]+ Nt[6,]
-  # pop = cbind(NAds, Nt[3,], Nt[6,], L)
-  return(L)
-  
-  
-}
-fooopp = function(p, pred, states1) {
-  lams = PatchAstochopp(p, states=states1, fx, n0, npatch, nstg, tf, P, pred)
-  avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
-  
-}
+source('~/Desktop/frog-trap/R/opposite day2 functions.R')
 
 # apply stochastic growth function over all predation levels
 resultsStochopp = ldply(pred, function(pred2){
@@ -97,29 +44,6 @@ opp = opp+geom_line() + labs(y="population growth rate log(lambda)", x="proporti
 opp 
 
 
-Getmatopp <- function( p, state, fx, n0, npatch, nstg, P, pred) {
-  # determine the environmental state for each patch
-  k=dim(P)[1]
-  Lsd = c(0,0)
-  
-  state[1] = sample(1:k,size=1, prob = P[,state[1]])
-  state[2] = sample(1:k,size=1, prob = P[,state[2]])
-  
-  # pull out the parameters so you can put them in a matrix
-  st = c(states[state[1],], states[state[2],])
-  J= st[c(1, 3)]
-  s1= st[c(2, 4)]
-  
-  A <- matrix(c(0, fx[1], 0, 0, 
-                J[1]*pred,s1[1]*p,0,s1[2]*p, 
-                0, 0, 0,fx[2],  
-                0,s1[2]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
-  return(A)
-}
-bigrunopp = function(tf, p1, pred1) {
-  As <- replicate(tf, Getmatopp(p=p1, state, fx, n0, npatch, nstg, P, pred=pred1))
-  StochSens(As)$elasticities
-}
 
 # Make a function to calculate average sensitivites for a bunch to time runs
 # over a bunch of attractiveness values
@@ -159,14 +83,11 @@ elsplotopp = function(pred) {
 
 predopp = elsplot2(pred=.5)
 
-Survives3 = function(j, a) {
-  states1 <- cbind(states[,1]*j, states[,2]*a)
-  r =  ldply(p, fooopp, states1=states1, pred=.5)
-  return(r)
-}
 
 survopp = foreach (i=1:20, combine=cbind) %dopar% {
-  Survives3(j=surv[i,1], a=surv[i,2])
+  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+  r =  ldply(p, fooopp, states1=states1, pred=.5)
+  return(r)
 }
 
 survopp2 = as.data.frame(survopp)

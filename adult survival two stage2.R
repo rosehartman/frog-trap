@@ -9,44 +9,6 @@ registerDoParallel(cores=2)
 library(ggplot2)
 library(plyr)
 
-# function to calculate extinction
-Ex1 = function(p, states1) {
-  # set the seed so the curve is smoother (Sebastian told me to)
-  Runmat = PatchDDstoch(p, M, states=states1, fx, n0, npatch, nstg, tf=500, P, pred)[1,]
-  if (Runmat[500]==0) ex = 1 else ex = 0
-  return(ex)
-}
-
-# function to calculate stochastic lambdas
-foo21 = function(p, states1) {
-  lams = PatchAstoch2(p, states1, fx, n0, npatch, nstg, tf=100000, P, pred)
-  avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
-  
-}
-
-# Calculate growth rate for particular changes in survivals
-Survives1 = function(j, a) {
-  states1 <- cbind(states[,1]*j, states[,2]*a)
-  r =  ldply(p, foo21,states1=states1)
-  return(r)
-}
-# Calculate extinction probs for particular changes in survivals
-Expr = function(j, a) {
-  states1 <- cbind(states[,1]*j, states[,2]*a)
-  ex.0 = replicate(1000, sapply(p, Ex1, states1=states1), simplify=T)
-  ex2.0 = rowSums(ex.0)/ncol(ex.0)
-  return(ex2.0)
-}
-
-# compile functions to make them run faster (maybe)
-library(compiler)
-PatchAstoch2 = cmpfun(PatchAstoch21)
-PatchDDstoch = cmpfun(PatchDDstoch1)
-Ex = cmpfun(Ex1)
-Survives = cmpfun(Survives1)
-foo2 = cmpfun(foo21)
-Expr = cmpfun(Expr)
-
 
 # probability of different states
 g = .25 # probability of a good year
@@ -80,37 +42,43 @@ write.csv(exmat2.1, file="exmatpreds.csv")
 
 # calculate extinction probabilities for different survival scenarios
 exmat = adply(surv, 1, function(x) {
-  Expr(j=x[1], a=x[2])}, .parallel=T,.progress = "tk")
+  states1 <- cbind(states[,1]*x[1], states[,2]*x[2])
+  ex.0 = replicate(1000, sapply(p, Ex1, states1=states1), simplify=T)
+  ex2.0 = rowSums(ex.0)/ncol(ex.0)
+  return(ex2.0) }, .parallel=T,.progress = "tk")
 exmat2.1 = as.data.frame(exmat)
 exmat2.1[,1]=NULL
 names(exmat2.1) = p
 exmat2.1$stage = c(rep("j", 7), rep("a", 7))
 exmat2.1$surv = rep(seq(.2,1.4, by=.2), 2)
 write.csv(exmat2.1, file="exmattwostage.csv")
-# calculate lambdas
 
+# calculate stochastic lambdas for all changes in survival rate
 survmat = foreach (i=1:20, combine=cbind) %dopar% {
-  Survives1(j=surv[i,1], a=surv[i,2])
+  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+  r =  ldply(p, foo21,states1=states1)
+  return(r)
 }
  
+# organize the data and save it as an csv
 survmat2 = as.data.frame(survmat)
 names(survmat2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
 survmat2$p = p
 
 write.csv(survmat2, file="survmat2.csv")
 
+# Get it into a format ggplot will like
 library(reshape2)
 survmat3 = melt(survmat2, id.vars = "p", variable.name="surv")
 survmat3$stage = c(rep("j", 210), rep("a", 210))
 survmat3$surv = rep(seq(.2,2, by=.2), each=21)
+# see what it looks like
 s = ggplot(data=survmat3, aes(x=p, y=value, color=surv)) + geom_point()
 s
 
 exmat3 = melt(exmat2.1, id.vars = c("stage", "surv"), variable.name= "p", value.name="exprob")
 exmat3$surv = as.factor(exmat3$surv)
 exmat3$p = rep(p, each=14)
-explotl = ggplot(data=exmat3[which(exmat3$stage=="l"),], aes(x=p12, y= exprob, color=surv)) + geom_line()
-explotl
 explotj = ggplot(data=exmat3[which(exmat3$stage=="j"),], aes(x=p12, y= exprob, color=surv)) + geom_line()
 explotj
 explota = ggplot(data=exmat3[which(exmat3$stage=="a"),], aes(x=p12, y= exprob, color=surv)) + geom_line()
