@@ -114,7 +114,7 @@ Table 2a: Elasticities of λ to changes in the non-zero matrix elements of the m
 
 Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. It is interesting that increasing the dispersal to the high-predation patch actually increases the growth rate up to a point (figure 1), but only in the stochastic model. This seems to peak at when 50% of juveniles are dispersing to the high-predation patch. The peak moves towards preference for the low-predation patch as the amount of predation increases, but some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch. Even with 90% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink.
 
-![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with both deterministic ($\lambda$, dotted lines) and stochastic ($\log \lamnda_s$, solid lines) survivorship. The stochastic survivorship assumed four possible states with the average year being most likely. Stochastic lines were averages from 100,000 years. ]()
+![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with both deterministic ($\lambda$, dotted lines) and stochastic ($\log \lamnda_s$, solid lines) survivorship. The stochastic survivorship assumed four possible states with the average year being most likely. Stochastic lines were averages from 100,000 years. ](figures/figure 1.png)
 
 The elasticity of log λs to changes in each entry of the metapopulation projection matrix depends greatly on how attractive the patch is and what the predation percentage is. When the predation percentage is 50% and both patches are equally attractive, the metapopulation growth rate is most elastic to changes in survivorship of the no predation patch, especially fecundity and adult survival (Table 2). 
 
@@ -126,21 +126,21 @@ Table 2b: Elasticities of log λs to changes in the non-zero matrix elements of 
 
 However, the relative importance of each of these matrix elements changes with changes in both dispersal and predation. When predation is held equal at 50%, increasing the proportion of juveniles moving to the high predation patch makes log λs more elastic to changes in the high predation patch matrix elements. Furthermore, juvenile migration becomes more important than fecundity when migration is strongly skewed toward one patch or the other (figure 2).
 
-![Figure 2. Elasticity of log λs to each of the non-zero matrix elements in the metapopulation projection matrix with changes in the proportion of juveniles moving between patches. Predation percentage is held constant at 50%]()
+![Figure 2. Elasticity of log λs to each of the non-zero matrix elements in the metapopulation projection matrix with changes in the proportion of juveniles moving between patches. Predation percentage is held constant at 50%](figures/figure2.pdf)
 
 ### Global elasticity of the value of poor information
 
 Any amount of migration causes there to be some value in poor information on the population level (the peak of this curve to is above zero, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0) depends on predation and survival of each life stage (fig 3). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
 
-![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information]()
+![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figure/figure3.pdf)
   
-![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles do not disperse when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information]()
+![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles do not disperse when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff adult dispersal.png)
 
 ### Spatial autocorrelation
 
 As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases. 
 
-![Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Each year type was equally likely and the predation was 50% in the high predation patch. This is the average of 200 replications of 1000 years each.]()
+![Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Each year type was equally likely and the predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.png)
 
 ### Density Dependence
 
