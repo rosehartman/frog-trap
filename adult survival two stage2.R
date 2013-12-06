@@ -27,18 +27,21 @@ pred= .5
 surv = matrix(c(seq(.2, 2, by=.2), rep(1, 20), seq(.2, 2, by=.2)), ncol=2)
 
 # extinction probabilities for different predation scenarios with lower adult survival to show shape of curve better
+states=cbind(states[,1], states[,2]*.6)
 exmatpred = ldply(pred, function(x) { 
-  states1 = cbind(states[,1]*j, states[,2]*a)
-  ex.0 = replicate(1000, sapply(p, Ex1, states1=cbind(states[,1]*j, states[,2]*a)), simplify=T)
+  pred=x
+  ex.0 = replicate(1000, sapply(p, Ex, pred=x), simplify=T)
   ex2.0 = rowSums(ex.0)/ncol(ex.0)
   return(ex2.0)}, .parallel=T)
 exmatpred2 = as.data.frame(exmatpred)
-exmatpred2[,1]=NULL
-names(exmat2.1) = p
-exmat2.1$stage = c(rep("j", 7), rep("a", 7))
-exmat2.1$surv = rep(seq(.2,1.4, by=.2), 2)
-write.csv(exmat2.1, file="exmatpreds.csv")
-
+names(exmatpred2) = p
+exmatpred2$pred = pred
+write.csv(exmatpred2, file="exmatpreds.csv")
+exmatpred3 = melt(exmatpred2, id.vars="pred", variable.name="p")
+exmatpred3$p = rep(p, each=6)
+exmatpred3$pred = ordered(exmatpred3$pred, labels = c("100%", "80%", "60%", "40%", "20%", "0%"))
+expred = ggplot(data=exmatpred3, aes(x=p, y=value, color=pred)) + geom_line()
+expred + labs(x="proportion of juveniles \n dispersing to the high predation patch", y= "probability of extinction in 500yrs", color="predation \n level")
 
 # calculate extinction probabilities for different survival scenarios
 exmat = adply(surv, 1, function(x) {
