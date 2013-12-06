@@ -130,11 +130,17 @@ However, the relative importance of each of these matrix elements changes with c
 
 ### Global elasticity of the value of poor information
 
-Any amount of migration causes there to be some value in poor information on the population level (the peak of this curve to is above zero, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0) depends on predation and survival of each life stage (fig 3). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
+Any amount of migration causes there to be some value in poor information on the population level (the peak of this curve to is above zero, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0) depends on predation and survival of each life stage (fig 3a). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
+
+This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the value of the trap is lower when adults disperse than when juveniles disperse. 
 
 ![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figure/figure3.pdf)
-  
-![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles do not disperse when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff adult dispersal.png)
+ 
+ ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predation.png)
+ 
+![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles do not disperse when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult dispersal.png)
+
+
 
 ### Spatial autocorrelation
 
@@ -144,13 +150,10 @@ As the degree of spatial autocorrelation increases, the height of the dispersal-
 
 ### Density Dependence
 
-Measuring extinction probabilities an idea of population stability in the long term. With the baseline vital rates, the population only experienced extinctions at very high predation levels (figure 6a).
+Measuring extinction probabilities an idea of population stability in the long term. With the baseline vital rates, the population only experienced extinctions at very high predation levels (Data not shown). However, when the survival rate of adults was decreased by 40% in every scenario, the relationship between extinction probability and habitat preference was clear (figure 6). The lowest probability of extinction occurred when there was a slight preference for the low-predation patch. Extinction probabilities increased when there was total preference for the low-predation patch or preference for the high-predation patch. 
 
-However, when any of the survival rates decreased, the relationship between extinction probability and habitat preference was clear (figure 6b). The lowest probability of extinction occurred when there was a slight preference for the low-predation patch. Extinction probabilities increased when there was total preference for the low-predation patch or preference for the high-predation patch. Decreases in juvenile and larval survival cause greater increases in probability of extinction than decreases in adult survival, and increases in adult survival cause a greater decrease in extinction probability than decreases in larval and juvenile survival (figure 6b).
+![Figure 6. Probability of extinction in 500 years for the entire metapopulation versus dispersal to the high predation patch when the carrying capacity of each patch is 50 larvae per year. Average of 1000 model runs](figures/extinctino probabilities.png)
 
-![Figure 6a. Probability of extinction in 500 years for the entire metapopulation versus dispersal to the high predation patch when all year types are equally likely and the carrying capacity of each patch is 50 larvae per year. Average of 1000 model runs]()
-
-![Figure 6b. Density dependent model showing changes in probability of extinction with changes in survivorship of each life stage with predation held constant at 50% and dispersal varied between 0 and 1]()
 
 ## Discussion:
 

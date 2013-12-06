@@ -1,20 +1,20 @@
-# functions for the "opposite day2" scenario where adults disperse instead
-# of juveniles
+# functions for the "opposite day3" scenario where adults disperse instead
+# of juveniles and adults experience predation
 
 # calculate deterministic growth rate
-Patchopp <- function(p, s1=s1, J=J, fx=fx,  pred=pred) {
+Patchopp3 <- function(p, s1=s1, J=J, fx=fx,  pred=pred) {
   ## p is the proportion of adults migrating to the high predation patch.
   
   A <- matrix(c(0, fx[1], 0, 0, 
-                J[1]*pred,s1[1]*p,0,s1[2]*p, 
+                J[1],s1[1]*p*pred,0,s1[2]*p, 
                 0, 0, 0,fx[2],  
-                0,s1[1]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
+                0,s1[1]*(1-p)*pred, J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
   
   return(lambda(A))    
   
 }
 # calculate stochastic growth rate
-PatchAstochopp = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
+PatchAstochopp3 = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
   # start all patches off with a good year
   L= numeric(tf)
   state = c(1,1)
@@ -34,9 +34,9 @@ PatchAstochopp = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
     s1= st[c(2, 4)]
     
     A <- matrix(c(0, fx[1], 0, 0, 
-                  J[1]*pred,s1[1]*p,0,s1[2]*p, 
+                  J[1],s1[1]*p*pred,0,s1[2]*p, 
                   0, 0, 0,fx[2],  
-                  0,s1[1]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
+                  0,s1[1]*(1-p)*pred, J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
     
     L[i] = (lambda(A))
     
@@ -50,13 +50,13 @@ PatchAstochopp = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
   
   
 }
-fooopp = function(p, pred, states1) {
-  lams = PatchAstochopp(p, states=states1, fx, n0, npatch, nstg, tf, P, pred)
+fooopp3 = function(p, pred, states1) {
+  lams = PatchAstochopp3(p, states=states1, fx, n0, npatch, nstg, tf, P, pred)
   avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
   
 }
 # Return the metapopulation projection matrix instead of lambda
-Getmatopp <- function( p, state, fx, n0, npatch, nstg, P, pred) {
+Getmatopp3 <- function( p, state, fx, n0, npatch, nstg, P, pred) {
   # determine the environmental state for each patch
   k=dim(P)[1]
   Lsd = c(0,0)
@@ -70,12 +70,12 @@ Getmatopp <- function( p, state, fx, n0, npatch, nstg, P, pred) {
   s1= st[c(2, 4)]
   
   A <- matrix(c(0, fx[1], 0, 0, 
-                J[1]*pred,s1[1]*p,0,s1[2]*p, 
+                J[1],s1[1]*p*pred,0,s1[2]*p, 
                 0, 0, 0,fx[2],  
-                0,s1[1]*(1-p), J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
+                0,s1[1]*(1-p)*pred, J[2],s1[2]*(1-p)), nrow=4, ncol=4, byrow=TRUE)
   return(A)
 }
-bigrunopp = function(tf, p1, pred1) {
-  As <- replicate(tf, Getmatopp(p=p1, state, fx, n0, npatch, nstg, P, pred=pred1))
+bigrunopp3 = function(tf, p1, pred1) {
+  As <- replicate(tf, Getmatopp3(p=p1, state, fx, n0, npatch, nstg, P, pred=pred1))
   StochSens(As)$elasticities
 }
