@@ -68,6 +68,7 @@ survmat2 = as.data.frame(survmat)
 names(survmat2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
 survmat2$p = p
 
+
 write.csv(survmat2, file="survmat2.csv")
 
 # Get it into a format ggplot will like
@@ -109,7 +110,7 @@ lampeak = qplot(levels, maxs, data= summary, geom="line", color=stage, xlab= "in
 lampeak
 # graph changes in difference between max and min or lambda curve
 
-lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Difference between lambda at peak of curve and 0 for each  life \n stage at each survival level")
+lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on juveniles, juvenile migration")
 
-lamdiff
+lamdiff + scale_y_continuous(limits = c(0,.26))
 

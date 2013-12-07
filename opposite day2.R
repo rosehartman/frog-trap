@@ -99,18 +99,18 @@ minlamopp = as.numeric(survopp2[1,1:20])
 maxsopp = survopp2[1:20,]
 for (i in 1:20) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
 
-summaryopp = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsopp=maxlamopp, p = maxs$p, ldiff=(maxlamopp-minlamopp))
+summaryopp = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsopp=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
 write.csv(summaryopp, file = "summary survivalsopp.csv")
 lamlocalopp = qplot(levels, p, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalopp
 
 
 # Graph changes in height of the peak of the lambda curve
-lampeakopp = qplot(levels, maxsopp, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeakopp = qplot(levels, maxsopp, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Predation on juveniles, adults migrate")
 lampeakopp
 # graph changes in difference between max and min or lambda curve
 
-lamdiffopp = qplot(levels, ldiff, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Difference between lambda at peak of curve and 0 for each  life \n stage at each survival level")
+lamdiffopp = qplot(levels, ldiff, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "predation on juveniles, adults migrate")
 
-lamdiffopp
+lamdiffopp + scale_y_continuous(limits=c(0, .26))
 

@@ -108,6 +108,6 @@ lampeakads = qplot(levels, maxsads, data= summaryads, geom="line", color=stage, 
 lampeakads
 # graph changes in difference between max and min or lambda curve
 
-lamdiffads = qplot(levels, ldiff, data= summaryads, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Difference between lambda at peak of curve and 0 for each  life \n stage at each survival level")
+lamdiffads = qplot(levels, ldiff, data= summaryads, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on adults, juveniles migrate")
 
-lamdiffads
+lamdiffads +scale_y_continuous(limits=c(0, .26))
