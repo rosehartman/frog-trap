@@ -131,7 +131,7 @@ Any amount of migration causes there to be some value in poor information on the
 
 This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the value of the trap is lower when adults disperse than when juveniles disperse. 
 
-![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figure/lamdiff juves.png)
+![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff juves.png)
  
  ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predation.png)
  
