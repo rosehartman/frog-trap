@@ -39,10 +39,10 @@ o=.25 # probability of a average year
 c=.25 # probability of chytrid
 P = matrix(c(g,b,o,c), 4, 4)
 p =  seq(0,1,by=0.05)
-pred = seq (0,1, by=.2)
+pred = seq (0,1, by=.05)
 
 # apply stochastic growth function over all predation levels
-resultsStoch = ldply(pred, function(pred2){
+resultsStoch1 = ldply(pred, function(pred2){
 # calculate stochastic growth rates
 r.0 = foreach(i=1:21, .combine=c) %dopar% foo2(p=p[i], pred=pred2)
 return(r.0)
@@ -62,20 +62,28 @@ allresults = data.frame(t(rbind(resultsdet, resultsStoch, p)))
 names(allresults) = c(pred,predSt,"p")
 write.csv(allresults, file = "two stage results.csv")
 
+allpred = data.frame(t(rbind(resultsStoch1, p)))
+names(allpred) = c(pred,"p")
+write.csv(allpred, file = "allpred.csv")
+
+
 # calculate maximum predation rate
-maxpred = apply(allresults[,7:12], 2,  max)
+maxpred1 = apply(allpred[,1:21], 2,  max)
 # minimum predation rate
-minpred = as.numeric(allresults[1,7:12])
-maxp = c(1:6)
-for (i in 7:12) maxp[i-6] = allresults[which(allresults[,i]==maxpred[(i-6)]),13]
+minpred1 = as.numeric(allpred[1,1:21])
+maxp1 = c(1:21)
+for (i in 1:21) maxp1[i] = allpred[which(allpred[,i]==maxpred1[i]),22]
 
 # organize it and plot it
-summarypred = data.frame(levels = pred, maxpred = maxpred, maxp = maxp, diffpred=(maxpred-minpred))
+summarypred = data.frame(levels = (1-pred), maxpred = maxpred1, maxp = maxp1, diffpred=(maxpred1-minpred1))
 plot(summarypred$levels, summarypred$maxpred, type="l")
+peak = ggplot(summarypred, aes(x=levels, y=maxp)) +geom_line()
+peak + labs(x="predation rate", y="proportion of juveniles dispersing \n that maximizes log(lambdas)")
 
 # get the dataframe into a format ggplot will like
 library(reshape2)
-allresults2 = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
+allpred2 = melt(allpred, id.vars="p", variable.name= "predation", value.name="lambda")
+
 allresults2$stoch = rep(NA, 252)
 allresults2$stoch[c(1:126)]="n"
 allresults2$stoch[c(127:252)] = "y"

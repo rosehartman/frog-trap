@@ -74,6 +74,8 @@ We then introduced environmental stochasticity to the model by allowing each pat
 
 Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased larval, juvenile, and adult survival. The “faliure” state is one in which a bad water year causes very few juveniles to recruit into the population.
 
+The environmental state may vary independently in a real two-patch system, but if the patches are closer together they may be more likely to encounter the same environmental state in a given year, which changes the value of poor information To see how this effected population growth rate, we varied the degree of spatial autocorrelation between patches from 0 to 1 and calculated the stochastic growth rate over 100000 years with a predation rate of 50% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 1.
+
 ### Local Elasticity Analysis
 
 To test the effect of small perturbations in the vital rates of the stochastic model, we calculated the elasticity of the stochastic growth rate using numerical simulation (Caswell 2001). Briefly, we adapting the code from Caswell (2001), to generate a series of metapopulation projection matrices based on the randomly fluctuating environmental states described above. We used this to generate a series of population structure vectors (v) and growth rates (R) projected forward in time and a series of reproductive value vectors (w) projected backwards in time. The elasticity matrix is:
@@ -86,11 +88,36 @@ We repeated the stochastic elasticity calculation for 100000 years and plotted t
 
 ### Global elasticity and the value of poor information
 
-To see how large changes in each vital rate affected log $\lambda_s$, we increased or decreased the larval, juvenile, and adult survivorship by a set percentage and plotted the change in the peak of the dispersal-growth rate curve for each change in survival. We held predation constant at 50% and changed one vital rate at a time between 10% and 190% of the baseline survival rate.
+To see how large changes in each vital rate affected log $\lambda_s$, we increased or decreased the larval, juvenile, and adult survivorship by a set percentage and plotted the change in the peak of the dispersal-growth rate curve for each change in survival. We held predation constant at 50% and changed one vital rate at a time between 0% and 200% of the baseline survival rate.
 
 The difference between the growth rate when juveniles always disperse to the low predation patch (perfect habitat site selection), and the peak of the attractiveness-growth rate curve, can be thought of as the value of having imperfect information when making site choices. The value of poor information may change depending on the survival of the life stages that use that information. To test this, we calculated the difference in $\log \lambda_s$ from the peak of the dispersal-growth rate curve to the value at the y-intercept.
 
-The environmental state may vary independently in a real two-patch system, but if the patches are closer together they may be more likely to encounter the same environmental state in a given year, which changes the value of poor information To see how this effected population growth rate, we varied the degree of spatial autocorrelation between patches from 0 to 1 and calculated the stochastic growth rate over 100000 years with a predation rate of 50% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 1.
+To expand our model beyond the life history of the Cascades frog, we tested senisitivity of $\log \lambda_s$ to changes in which life stage experienced predation and which life stage dispersed. We repeated the global elasiticity analysis described above for an organism whos juveniles disperse but whos undults expereince predation using metapopulation projection matrix A2:
+
+$$A2 = \begin{bmatrix}
+        0 & f_1 & 0 & 0 \\
+        J_1 d & S_1 (1-p) & J_2 d & 0 \\
+        0 & 0 & 0 & f_1 \\
+        J_1 (1-d) & 0 & J_2 (1-d) & S_2 
+      \end{bmatrix}$$
+
+An organism whos adults disperse but whos juveniles expereince predation is described by metapopulation projection matrix A3:
+
+$$A3 = \begin{bmatrix}
+        0 & f_1 & 0 & 0 \\
+        J_1 (1-p) & S_1 d & 0 & S_2 d \\
+        0 & 0 & 0 & f_1 \\
+        0 & S_1 (1-d) & J_2 & S_2 (1-d)
+      \end{bmatrix}$$
+      
+Lastly, an organism whos adults disperse expereince predation is described by metapopulation projection matrix A4:
+
+$$A4 = \begin{bmatrix}
+        0 & f_1 & 0 & 0 \\
+        J_1 & S_1 (1-p) d & 0 & S_2 d \\
+        0 & 0 & 0 & f_1 \\
+        0 & S_1 (1-p) (1-d) & J_2 & S_2 (1-d)
+      \end{bmatrix}$$
 
 
 ## Results
@@ -107,11 +134,11 @@ Table 2a: Elasticities of λ to changes in the non-zero matrix elements of the m
 
 ### Stochastic growth
 
-Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. It is interesting that increasing the dispersal to the high-predation patch actually increases the growth rate up to a point (figure 1), but only in the stochastic model. This seems to peak at when 50% of juveniles are dispersing to the high-predation patch. The peak moves towards preference for the low-predation patch as the amount of predation increases, but some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch. Even with 90% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. 
+Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. Increasing the dispersal to the high-predation patch  increases the growth rate in a uni-model relationship (figure 1a). The peak occurs near 50% of juveniles  dispersing to the high-predation patch when predation is low, and  moves towards greater preference for the low-predation patch as the amount of predation increases (figure1b). Some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch, but $\log \lambda_s$ is maximized when the larger percentage goes to the low predation patch. Even with 80% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. If the patch is a total sink (100% predation), their is no longer a uni-modal relationhsip and $\log \lambda_s$ is maximized at total avoidance of the sink.
 
-Note! I should make a graph of what dispersal rates maximize the growth rate for each level of predation to show that it is always less than 50%. So if EVERYONE falls into the trap you are in trouble.
+![Figure 1a. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with both deterministic ($\lambda$, dotted lines) and stochastic ($\log \lamnda_s$, solid lines) survivorship. The stochastic survivorship assumed four possible states with the average year being most likely. Stochastic lines were averages from 100,000 years. ](figures/figure 1.png)
 
-![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with both deterministic ($\lambda$, dotted lines) and stochastic ($\log \lamnda_s$, solid lines) survivorship. The stochastic survivorship assumed four possible states with the average year being most likely. Stochastic lines were averages from 100,000 years. ](figures/figure 1.png)
+![Figure 1b. Difference between the hight of the dispersal-$\log \lamnda_s$ curve from figure 1a and the $\log \lamnda_s$ at zero dispersal versus predation rate. ](figures/dispersal at max.png)
 
 The elasticity of log λs to changes in each entry of the metapopulation projection matrix depends greatly on how attractive the patch is and what the predation percentage is. When the predation percentage is 50% and both patches are equally attractive, the metapopulation growth rate is most elastic to changes in survivorship of the no predation patch, especially fecundity and adult survival (Table 2). 
 
@@ -131,7 +158,7 @@ Any amount of migration causes there to be some value in poor information on the
 
 This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the value of the trap is lower when adults disperse than when juveniles disperse. 
 
-![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figure/lamdiff juves.png)
+![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff juves.png)
  
  ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predation.png)
  
