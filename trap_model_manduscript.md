@@ -74,8 +74,6 @@ We then introduced environmental stochasticity to the model by allowing each pat
 
 Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased larval, juvenile, and adult survival. The “faliure” state is one in which a bad water year causes very few juveniles to recruit into the population.
 
-The environmental state may vary independently in a real two-patch system, but if the patches are closer together they may be more likely to encounter the same environmental state in a given year, which changes the value of poor information To see how this effected population growth rate, we varied the degree of spatial autocorrelation between patches from 0 to 1 and calculated the stochastic growth rate over 100000 years with a predation rate of 50% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 1.
-
 ### Local Elasticity Analysis
 
 To test the effect of small perturbations in the vital rates of the stochastic model, we calculated the elasticity of the stochastic growth rate using numerical simulation (Caswell 2001). Briefly, we adapting the code from Caswell (2001), to generate a series of metapopulation projection matrices based on the randomly fluctuating environmental states described above. We used this to generate a series of population structure vectors (v) and growth rates (R) projected forward in time and a series of reproductive value vectors (w) projected backwards in time. The elasticity matrix is:
@@ -92,32 +90,7 @@ To see how large changes in each vital rate affected log $\lambda_s$, we increas
 
 The difference between the growth rate when juveniles always disperse to the low predation patch (perfect habitat site selection), and the peak of the attractiveness-growth rate curve, can be thought of as the value of having imperfect information when making site choices. The value of poor information may change depending on the survival of the life stages that use that information. To test this, we calculated the difference in $\log \lambda_s$ from the peak of the dispersal-growth rate curve to the value at the y-intercept.
 
-To expand our model beyond the life history of the Cascades frog, we tested senisitivity of $\log \lambda_s$ to changes in which life stage experienced predation and which life stage dispersed. We repeated the global elasiticity analysis described above for an organism whos juveniles disperse but whos undults expereince predation using metapopulation projection matrix A2:
-
-$$A2 = \begin{bmatrix}
-        0 & f_1 & 0 & 0 \\
-        J_1 d & S_1 (1-p) & J_2 d & 0 \\
-        0 & 0 & 0 & f_1 \\
-        J_1 (1-d) & 0 & J_2 (1-d) & S_2 
-      \end{bmatrix}$$
-
-An organism whos adults disperse but whos juveniles expereince predation is described by metapopulation projection matrix A3:
-
-$$A3 = \begin{bmatrix}
-        0 & f_1 & 0 & 0 \\
-        J_1 (1-p) & S_1 d & 0 & S_2 d \\
-        0 & 0 & 0 & f_1 \\
-        0 & S_1 (1-d) & J_2 & S_2 (1-d)
-      \end{bmatrix}$$
-      
-Lastly, an organism whos adults disperse expereince predation is described by metapopulation projection matrix A4:
-
-$$A4 = \begin{bmatrix}
-        0 & f_1 & 0 & 0 \\
-        J_1 & S_1 (1-p) d & 0 & S_2 d \\
-        0 & 0 & 0 & f_1 \\
-        0 & S_1 (1-p) (1-d) & J_2 & S_2 (1-d)
-      \end{bmatrix}$$
+The environmental state may vary independently in a real two-patch system, but if the patches are closer together they may be more likely to encounter the same environmental state in a given year, which changes the value of poor information To see how this effected population growth rate, we varied the degree of spatial autocorrelation between patches from 0 to 1 and calculated the stochastic growth rate over 100000 years with a predation rate of 50% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 1.
 
 
 ## Results
@@ -164,7 +137,7 @@ This pattern changes with different life history strategies. If adults experince
  
 ![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult migration.png)
 
-![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predmig.png)
+![Figure 3d. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predmig.png)
 
 
 ### Spatial autocorrelation
