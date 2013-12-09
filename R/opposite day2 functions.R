@@ -50,7 +50,7 @@ PatchAstochopp = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
   
   
 }
-fooopp = function(p, pred, states1) {
+fooopp = function(p, pred, states1, fx=c(150,150)) {
   lams = PatchAstochopp(p, states=states1, fx, n0, npatch, nstg, tf, P, pred)
   avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
   

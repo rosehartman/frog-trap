@@ -62,22 +62,36 @@ survmat = foreach (i=1:20, combine=cbind) %dopar% {
   r =  ldply(p, foo21,states1=states1)
   return(r)
 }
+
+# this time let's change the fecundidties
+f = seq(.2,2, by=.2)
+fmat = foreach (i=1:10, combine=cbind) %dopar% {
+  fx1 <- c(150*f[i], 150*f[i])
+  r =  ldply(p, foo21,states1=states, fx=fx1)
+  return(r)
+}
+fmat = as.data.frame(fmat)
+names(fmat) = f
+fmat$p = p
+fmat2 = melt(fmat, id.vars = "p", variable.name="surv")
+fmat2$stage = rep("f", 210)
+fmat2$surv = rep(seq(.2,2, by=.2), each=21)
  
 # organize the data and save it as an csv
 survmat2 = as.data.frame(survmat)
 names(survmat2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
 survmat2$p = p
-
-
 write.csv(survmat2, file="survmat2.csv")
+survmat2.1 = cbind(fmat[1:10], survmat2[2:22])
 
 # Get it into a format ggplot will like
 library(reshape2)
-survmat3 = melt(survmat2, id.vars = "p", variable.name="surv")
-survmat3$stage = c(rep("j", 210), rep("a", 210))
+survmat3 = melt(survmat2.1, id.vars = "p", variable.name="surv")
+survmat3$stage = c(rep("f", 210), rep("j", 210), rep("a", 210))
 survmat3$surv = rep(seq(.2,2, by=.2), each=21)
+
 # see what it looks like
-s = ggplot(data=survmat3, aes(x=p, y=value, color=surv)) + geom_point()
+s = ggplot(data=survmat3, aes(x=p, y=value, color=as.factor(surv))) + geom_line()
 s
 
 exmat3 = melt(exmat2.1, id.vars = c("stage", "surv"), variable.name= "p", value.name="exprob")
@@ -92,13 +106,13 @@ explot = ggplot(data=exmat3, aes(x=p, y= exprob, color=surv, lty=stage)) + geom_
   guides(color=guide_legend(ncol=2, title="change in survival"))
 explot
 # find the proportion of juveniles moving that maximizes the growth rate with changes in larval survival
-maxlam = apply(survmat2[,1:20], 2, max)
-minlam = as.numeric(survmat2[1,1:20])
-maxs = survmat2[1:20,]
-for (i in 1:20) maxs[i,] = survmat2[which(survmat2[,i]==maxlam[i]),]
+maxlam = apply(survmat2.1[,1:30], 2, max)
+minlam = as.numeric(survmat2.1[1,1:30])
+maxs = survmat2.1[1:30,]
+for (i in 1:30) maxs[i,] = survmat2.1[which(survmat2.1[,i]==maxlam[i]),]
 
 # data frame for summary statistics with chanes in survival of each life stage
-summary = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
+summary = data.frame(levels = rep(seq(.2, 2, by=.2), 3), stage = c(rep("f", 10),rep("j", 10),rep("a", 10)), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
 write.csv(summary, file = "summary survivals2.csv")
 # graph changes in location of peak of the lambda curve
 lamlocal = qplot(levels, p, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")

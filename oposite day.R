@@ -88,26 +88,36 @@ survAds = foreach (i=1:20, combine=cbind) %dopar% {
   return(r)
 }
 
+fads =  foreach (i=1:10, combine=cbind) %dopar% {
+ fx1 = c(150*f[i], 150*f[i])
+  r =  ldply(p, fooAds, states1=states, fx=fx1, pred=.5)
+  return(r)
+}
+fads = as.data.frame(fads)
+
 survads2 = as.data.frame(survAds)
 names(survads2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
 survmat2$p = p
 
-maxlamads = apply(survads2[,1:20], 2, max)
-minlamads = as.numeric(survads2[1,1:20])
-maxsads = survads2[1:20,]
+maxlamads = apply(cbind(survads2[,1:20], fads), 2, max)
+minlamads = as.numeric(survads2[1,1:20], fads[1,])
+maxsads = cbind(survads2[1:20,], fads)
 for (i in 1:20) maxsads[i,] = survads2[which(survads2[,i]==maxlamads[i]),]
 
 summaryads = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsads=maxlamads, p = maxs$p, ldiff=(maxlamads-minlamads))
-write.csv(summaryads, file = "summary survivalsads.csv")
-lamlocalads = qplot(levels, p, data= summaryads, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
+summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxsads=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
+summaryads2 = rbind(summaryads, summaryf)
+write.csv(summaryads2, file = "summary survivalsads.csv")
+
+lamlocalads = qplot(levels, p, data= summaryads2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalads
 
 
 # Graph changes in height of the peak of the lambda curve
-lampeakads = qplot(levels, maxsads, data= summaryads, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeakads = qplot(levels, maxsads, data= summaryads2, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
 lampeakads
 # graph changes in difference between max and min or lambda curve
 
-lamdiffads = qplot(levels, ldiff, data= summaryads, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on adults, juveniles migrate")
+lamdiffads = qplot(levels, ldiff, data= summaryads2, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on adults, juveniles migrate")
 
 lamdiffads +scale_y_continuous(limits=c(0, .26))

@@ -90,6 +90,18 @@ survopp = foreach (i=1:20, combine=cbind) %dopar% {
   return(r)
 }
 
+fopp = foreach (i=1:20, combine=cbind) %dopar% {
+ fx1 = c(150*f[i], 150*f[i])
+  r =  ldply(p, fooopp, states1=states, fx=fx1 pred=.5)
+  return(r)
+}
+fopp = as.data.frame(fopp)
+fopp$p = p
+maxf = apply(fopp[,1:10], 2, max)
+minf = as.numeric(fopp[1,])
+maxsf = fopp[1:10,]
+summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxsads=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
+
 survopp2 = as.data.frame(survopp)
 names(survopp2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
 survopp2$p = p
@@ -100,7 +112,8 @@ maxsopp = survopp2[1:20,]
 for (i in 1:20) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
 
 summaryopp = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsopp=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
-write.csv(summaryopp, file = "summary survivalsopp.csv")
+summaryopp2 = rbind(summaryf, summaryopp)
+write.csv(summaryopp2, file = "summary survivalsopp2.csv")
 lamlocalopp = qplot(levels, p, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalopp
 
