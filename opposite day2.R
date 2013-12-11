@@ -100,7 +100,10 @@ fopp$p = p
 maxf = apply(fopp[,1:10], 2, max)
 minf = as.numeric(fopp[1,1:10])
 maxsf = fopp[1:10,]
+<<<<<<< HEAD
 for (i in 1:20) maxsf[i,] = fopp[which(fopp[,i]==maxf[i]),]
+=======
+>>>>>>> 1de473851b14e62da699025efbf29c0f4ac155e6
 summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxsopp=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
 
 survopp2 = as.data.frame(survopp)
