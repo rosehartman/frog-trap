@@ -68,7 +68,8 @@ In order to see how changes in habitat selection affected population growth, we 
 
 We then introduced environmental stochasticity to the model by allowing each patch to be in one of four environmental states (table 1). Amphibians have naturally stochastic population dynamics, with survival depending on a number of environmental characteristics. We simplified this by defining years as “good”, “bad”, “average”, or “failure” where we increased or decreased the survival of all life stages simultaneously. The “failure” environmental state mimics a bad water year or late freeze which causes very low juvenile recruitment. Fecundity was not affected. Year types were chosen via a random draw based on equal probabilities of encountering each year type defined by different scenarios (Caswell 2001). We allowed the state in each patch to vary independently of the other patch, but the survival of larvae in the high-predation patch was always penalized by the same percentage no matter what the environmental state. We calculated stochastic metapopulation growth rates ($\log \lambda_s$) by averaging log of the lambdas for each year of a 100,000 year simulation with predation percentages from 0% to 100% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 1.
 
-| Environmental state | Juvenile recruitment | adult survival | fecundity |
+Environmental state | Juvenile recruitment | adult survival | fecundity
+---------------------|----------------------|----------------|-----------
 |good|0.02|0.7|150|
 |average|0.009|0.6|150|
 |bad|0.002|0.2|150|
@@ -129,6 +130,7 @@ $$A4 = \begin{bmatrix}
 We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate ($\lambda$) when predation was increased (see figure 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% predation. The elasticity analysis of the metapopulation projection matrix (table 2a), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
 
 patch|Fecundity|Migrants from predator patch|Migrants from patch non-predator patch|Adult survival
+-------|-------|---------|---------|---------
 Predator|0.1190|0.0397|0.0794|0.0952
 Non-predator|0.2381|0.0794|0.1587|0.1905
 
@@ -136,18 +138,18 @@ Table 2a: Elasticities of λ to changes in the non-zero matrix elements of the m
 
 ### Stochastic growth
 
-Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. Increasing the dispersal to the high-predation patch  increases the growth rate in a uni-model relationship (figure 1a). The peak occurs near 50% of juveniles  dispersing to the high-predation patch when predation is low, and  moves towards greater preference for the low-predation patch as the amount of predation increases (figure1b). Some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch, but $\log \lambda_s$ is maximized when the larger percentage goes to the low predation patch. Even with 80% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. If the patch is a total sink (100% predation), their is no longer a uni-modal relationhsip and $\log \lambda_s$ is maximized at total avoidance of the sink.
+Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. Increasing the dispersal to the high-predation patch  increases the growth rate in a uni-model relationship (figure 1b). The peak (marked with points on each curve) occurs near 50% of juveniles  dispersing to the high-predation patch when predation is low, and  moves towards greater preference for the low-predation patch as the amount of predation increases. Some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch, but $\log \lambda_s$ is maximized when the larger percentage goes to the low predation patch. Even with 80% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. If the patch is a total sink (100% predation), their is no longer a uni-modal relationhsip and $\log \lambda_s$ is maximized at total avoidance of the sink.
 
-![Figure 1a. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with both deterministic ($\lambda$, dotted lines) and stochastic ($\log \lamnda_s$, solid lines) survivorship. The stochastic survivorship assumed four possible states with the average year being most likely. Stochastic lines were averages from 100,000 years. ](figures/figure 1.png)
+![Figure 1a. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship. ](figures/deterministic.png)
 
-![Figure 1b. Difference between the hight of the dispersal-$\log \lamnda_s$ curve from figure 1a and the $\log \lamnda_s$ at zero dispersal versus predation rate. ](figures/dispersal at max.png)
-(THIS MIGHT BE BETTER OFF INCORPORATED INTO FIGURE 1A. EVEN BETTER, NOAM CAN PROBABLY SOLVE THIS ANALYTICALLY)
+![Figure 1b. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochastic.png)
+
 
 ### Spatial autocorrelation
 
 As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases. 
 
-![Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Each year type was equally likely and the predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.png)
+![Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.png)
 
 ###Elasticity
 
@@ -161,11 +163,11 @@ Table 2b: Elasticities of log λs to changes in the non-zero matrix elements of 
 
 However, the relative importance of each of these matrix elements changes with changes in both dispersal and predation. When predation is held equal at 50%, increasing the proportion of juveniles moving to the high predation patch makes log λs more elastic to changes in the high predation patch matrix elements. Furthermore, juvenile migration becomes more important than fecundity when migration is strongly skewed toward one patch or the other (figure 2).
 
-![Figure 2. Elasticity of log λs to each of the non-zero matrix elements in the metapopulation projection matrix with changes in the proportion of juveniles moving between patches. Predation percentage is held constant at 50%](figures/figure2.pdf)
+![Figure 2. Elasticity of log λs to each of the non-zero matrix elements in the metapopulation projection matrix with changes in the proportion of juveniles moving between patches. Predation percentage is held constant at 50%](figures/figure2.png)
 
 ### Global elasticity of the value of poor information
 
-Any amount of migration causes there to be some value in poor information on the population level (the peak of this curve to is above zero, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0) depends on predation and survival of each life stage (fig 3a). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
+Any amount of migration causes there to be some value in poor information on the population level (the peak of this curve to is above zero, see Fig 1b). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0, marked with a dotted line on figure 1) depends on predation and survival of each life stage (fig 3a). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
 
 This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the value of the trap is lower when adults disperse than when juveniles disperse. 
 
@@ -218,6 +220,8 @@ Escape from ecological traps may occur via rapid evolution, phenotypic plasticit
 ## Conclusions
 
 Maladaptive habitat selection decrease does population growth more than presence of low-quality habitat patches on their own, but stochastic dynamics and non-linear growth curves may mean a slightly attractive sink is better than one that is totally avoided. Specifics of the organisms’ life history, dispersal rates, and spatial variation in factors affecting survival are key to determining the degree to which ecological traps are helpful or detrimental to population persistence.
+
+## Literature Cited
 
 Altwegg, R. 2003. Multistage density dependence in an amphibian. Oecologia 136:46-50.
 

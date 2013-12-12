@@ -133,7 +133,7 @@ lampeakopp = qplot(levels, maxsopp, data= summaryopp2, geom="line", color=stage,
 lampeakopp
 # graph changes in difference between max and min or lambda curve
 
-lamdiffopp = qplot(levels, ldiff, data= summaryopp2, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "predation on juveniles, adults migrate")
+lamdiffopp = qplot(levels, ldiff, data= summaryopp2, geom="line", color=stage, xlab= "proportional change in survival", ylab="difference in logλs", main = "predation on juveniles, adults migrate")
 
-lamdiffopp + scale_y_continuous(limits=c(0, .26))
+lamdiffopp + scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 

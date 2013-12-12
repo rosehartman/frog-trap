@@ -128,7 +128,7 @@ lampeakO = qplot(levels, maxlamO, data= summaryO2, geom="line", color=stage, xla
 lampeakO
 # graph changes in difference between max and min or lambda curve
 
-lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on adults, adults migrate")
+lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "proportional change in survival", ylab="difference in logλs", main = "Predation on adults, adults migrate")
 
-lamdiffO +  scale_y_continuous(limits=c(0, .26))
+lamdiffO +  scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 

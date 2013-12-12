@@ -124,7 +124,7 @@ lampeak = qplot(levels, maxs, data= summary, geom="line", color=stage, xlab= "in
 lampeak
 # graph changes in difference between max and min or lambda curve
 
-lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Predation on juveniles, juvenile migration")
+lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "change in survival", ylab="difference in logλs", main = "Predation on juveniles, juvenile migration")
 
-lamdiff + scale_y_continuous(limits = c(0,.26))
+lamdiff + scale_y_continuous(limits = c(0,.26)) +scale_color_manual(values=c(f="red", j="blue", a="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 
