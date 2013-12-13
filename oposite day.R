@@ -108,6 +108,8 @@ summaryads = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 1
 summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxsads=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
 summaryads2 = rbind(summaryads, summaryf)
 write.csv(summaryads2, file = "summary survivalsads.csv")
+summaryads2$stage = factor(summaryads2$stage, levels = c("f", "j", "a"))
+
 
 lamlocalads = qplot(levels, p, data= summaryads2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalads
@@ -118,6 +120,10 @@ lampeakads = qplot(levels, maxsads, data= summaryads2, geom="line", color=stage,
 lampeakads
 # graph changes in difference between max and min or lambda curve
 
-lamdiffads = qplot(levels, ldiff, data= summaryads2, geom="line", color=stage, xlab= "proportional change in survival", ylab="difference in logλs", main = "Predation on adults, juveniles migrate")
+lamdiffads = qplot(levels, ldiff, data= summaryads2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "Predation on adults, juveniles disperse")
 
 lamdiffads +scale_y_continuous(limits=c(0, .26))+ scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+
+svg(filename="lamdiff adult predation.svg", width=6, height=4)
+lamdiffads+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()
