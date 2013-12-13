@@ -26,7 +26,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,17 +39,17 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1124"
-     inkscape:window-height="749"
+     inkscape:window-width="1123"
+     inkscape:window-height="613"
      id="namedview783"
      showgrid="false"
      inkscape:zoom="0.65185185"
-     inkscape:cx="343.7784"
-     inkscape:cy="-55.069483"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:cx="242.68181"
+     inkscape:cy="-177.79676"
+     inkscape:window-x="75"
+     inkscape:window-y="6"
      inkscape:window-maximized="0"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="g617" />
   <defs
      id="defs4">
     <marker
@@ -2043,83 +2043,21 @@
        y="100.21094"
        x="19.410156"
        xlink:href="#glyph2-9" />
-    <use
-       height="288"
-       width="432"
-       id="use665"
-       y="96.876953"
-       x="19.410156"
-       xlink:href="#glyph2-4" />
-    <use
-       height="288"
-       width="432"
-       id="use667"
-       y="94.210938"
-       x="19.410156"
-       xlink:href="#glyph2-2" />
-    <use
-       height="288"
-       width="432"
-       id="use669"
-       y="87.537109"
-       x="19.410156"
-       xlink:href="#glyph2-10" />
-    <use
-       height="288"
-       width="432"
-       id="use671"
-       y="80.863281"
-       x="19.410156"
-       xlink:href="#glyph2-15" />
-    <use
-       height="288"
-       width="432"
-       id="use673"
-       y="76.867188"
-       x="19.410156"
-       xlink:href="#glyph2-4" />
-    <use
-       height="288"
-       width="432"
-       id="use675"
-       y="74.201172"
-       x="19.410156"
-       xlink:href="#glyph2-5" />
-    <use
-       height="288"
-       width="432"
-       id="use677"
-       y="67.527344"
-       x="19.410156"
-       xlink:href="#glyph2-16" />
-    <use
-       height="288"
-       width="432"
-       id="use679"
-       y="57.53125"
-       x="19.410156"
-       xlink:href="#glyph2-17" />
-    <use
-       height="288"
-       width="432"
-       id="use681"
-       y="50.857422"
-       x="19.410156"
-       xlink:href="#glyph2-18" />
-    <use
-       height="288"
-       width="432"
-       id="use683"
-       y="44.183594"
-       x="19.410156"
-       xlink:href="#glyph2-5" />
-    <use
-       height="288"
-       width="432"
-       id="use685"
-       y="37.509766"
-       x="19.410156"
-       xlink:href="#glyph2-19" />
+    <text
+       xml:space="preserve"
+       style="font-size:28.51119804px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="-91.816628"
+       y="17.021198"
+       id="text3432"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1.0147199,0.98549364,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan3436"
+         style="font-size:8.55335903px"
+         x="-91.816628"
+         y="17.021198">logλ<tspan
+   style="font-size:8.55335903px;baseline-shift:sub"
+   id="tspan3438">s</tspan></tspan></text>
   </g>
   <path
      inkscape:connector-curvature="0"
@@ -2372,66 +2310,10 @@
        x="394.78409"
        xlink:href="#glyph0-8" />
   </g>
-  <text
-     xml:space="preserve"
-     style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-     x="119.04543"
-     y="132.13635"
-     id="text3762"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       id="tspan3764"
-       x="119.04543"
-       y="132.13635"
-       style="font-size:9.60000038px">maximum growth rate</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-     x="65.045464"
-     y="235.22728"
-     id="text3766"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       x="65.045464"
-       y="235.22728"
-       id="tspan3770"
-       style="font-size:9.60000038px">growth rate at</tspan><tspan
-       sodipodi:role="line"
-       x="65.045464"
-       y="247.22728"
-       style="font-size:9.60000038px"
-       id="tspan3704">zero dispersal</tspan></text>
-  <text
-     xml:space="preserve"
-     style="font-size:32px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-     x="294.54547"
-     y="141.95454"
-     id="text3772"
-     sodipodi:linespacing="125%"><tspan
-       sodipodi:role="line"
-       x="294.54547"
-       y="141.95454"
-       id="tspan3776"
-       style="font-size:9.60000038px">increase in growth rate due </tspan><tspan
-       sodipodi:role="line"
-       x="294.54547"
-       y="153.95454"
-       id="tspan3780"
-       style="font-size:9.60000038px">to migration toward trap</tspan></text>
   <path
      style="fill:none;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
      d="m 294.54544,154.22726 -47.86363,22.09092"
      id="path3788"
-     inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-     d="m 74.863636,222.95455 0,-23.31818"
-     id="path3790"
-     inkscape:connector-curvature="0" />
-  <path
-     style="fill:none;stroke:#000000;stroke-width:0.80000001px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
-     d="M 223.36364,138.27273 240.54545,153"
-     id="path7226"
      inkscape:connector-curvature="0" />
   <text
      xml:space="preserve"
@@ -2450,4 +2332,19 @@
        y="191.54546"
        id="tspan7972"
        style="font-size:11.19999981px">level</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+     x="377.38635"
+     y="180.51135"
+     id="text3424"
+     sodipodi:linespacing="125%"
+     transform="scale(0.8,0.8)"><tspan
+       sodipodi:role="line"
+       id="tspan3428"
+       x="377.38635"
+       y="180.51135"
+       style="font-size:16px">δλ<tspan
+   style="font-size:16px;baseline-shift:sub"
+   id="tspan3430">sMAX</tspan></tspan></text>
 </svg>

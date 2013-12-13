@@ -91,7 +91,7 @@ We repeated the stochastic elasticity calculation for 100000 years and plotted t
 
 ### Global elasticity and the value of poor information
 
-The difference between the growth rate when juveniles always disperse to the low predation patch (perfect habitat site selection), and the peak of the attractiveness-growth rate curve, can be thought of as the value of having imperfect information when making site choices. The value of poor information may change depending on the survival of the life stages that use that information. To test this, we calculated the difference in $\log \lambda_s$ from the peak of the dispersal-growth rate curve to the value at the y-intercept. We held predation constant at 50% and changed one vital rate at a time between 0% and 200% of the baseline survival rate.
+The difference between the growth rate when juveniles always disperse to the low predation patch (perfect habitat site selection), and the peak of the attractiveness-growth rate curve, can be thought of as the value of having imperfect information when making site choices. We will refer to this value as $δlogλ_sMAX$. $δlogλ_sMAX$ may change depending on the survival of the life stages that use that information. We held predation constant at 50% and changed one vital rate at a time between 0% and 200% of the baseline survival rate.
 
 To expand our model beyond the life history of the Cascades frog, we tested senisitivity of $\log \lambda_s$ to changes in which life stage experienced predation and which life stage dispersed. We repeated the global elasiticity analysis described above for an organism whos juveniles disperse but whos undults expereince predation using metapopulation projection matrix A2:
 
@@ -144,7 +144,7 @@ Figure 1a. Growth rate  of the two-patch metapopulation versus dispersal to the 
 
 ![Figure 1b. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochastic.png)
 
-Figure 1b. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship.
+Figure 1b. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) versus dispersal to the high-predation patch with stochastic survivorship. The maximum growth rate for each predation level (Marked with circle) occurs at lower dispersal towrad the trap patch with increasing predation. The maximum increase in $\log \lambda_s$ ($δlogλ_sMAX$, marked with vertical dotted line) decreases with increasing predation. 
 
 
 ### Spatial autocorrelation
@@ -173,25 +173,25 @@ Figure 2. Elasticity of log λs to each of the non-zero matrix elements in the m
 
 ### Global elasticity of the value of poor information
 
-Some dispersal causes there to be some value in poor information on the population level (the peak of the growth rate curve is greater than the growth rate at zero dispersal, see Fig 1b). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself (dispersal rate of 0, marked with a dotted line on figure 1) depends on predation and survival of each life stage (fig 3a). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
+Some dispersal causes there to be some value in poor information on the population level (the peak of the growth rate curve is greater than the growth rate at zero dispersal, see Fig 1b). However, the difference between the peak of the metapopulation growth rate and the growth rate of the low-predation patch by itself ($δlogλ_sMAX$) depends on predation and survival of each life stage (fig 3a). Increasing the adult survival decreases the value of having a proportion of juveniles disperse to the high-predation patch. Increasing juvenile survival increased the value of having a proportion of juveniles disperse to the high=predation patch.
 
-This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the value of the trap is lower when adults disperse than when juveniles disperse. When adults disperse every year and experience predation, there is no longer any value in dispersal toward a trap (figure 3d).
+This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the $δlogλ_sMAX$ is lower when adults disperse than when juveniles disperse. When adults disperse every year and experience predation, there is no longer any value in dispersal toward a trap ($δlogλ_sMAX$ = 0, figure 3d).
 
 ![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff juves.png)
 
-Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information
+Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 ($δlogλ_sMAX$) when the survivorship of each life stage for every year type is increased or decreased. 
  
  ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predation.png)
 
-Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased.
+Figure 3b. $δlogλ_sMAX$ when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased.
  
-![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult migration.png)
+![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult dispersal.png)
 
-Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased.
+Figure 3c. $δlogλ_sMAX$ when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased.
 
 ![Figure 3d. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predmig.png)
 
-Figure 3d. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased.
+Figure 3d. $δlogλ_sMAX$ when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased.
 
 
 ## Discussion:

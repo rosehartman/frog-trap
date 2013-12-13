@@ -119,6 +119,8 @@ for (i in 1:20) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 summaryO = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxlamO=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
 summaryO2 = rbind(summaryf, summaryO)
 write.csv(summaryO2, file = "summary survivalsO2.csv")
+summaryO2$stage = factor(summaryO2$stage, levels = c("f", "j", "a"))
+
 lamlocalO = qplot(levels, p, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalO
 
@@ -128,7 +130,10 @@ lampeakO = qplot(levels, maxlamO, data= summaryO2, geom="line", color=stage, xla
 lampeakO
 # graph changes in difference between max and min or lambda curve
 
-lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "proportional change in survival", ylab="difference in logλs", main = "Predation on adults, adults migrate")
+lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "Predation on adults, adults disperse")
 
 lamdiffO +  scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+svg(filename="lamdiff adult predmig.svg", width=6, height=4)
+lamdiffO+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()
 

@@ -126,14 +126,17 @@ summaryopp2 = rbind(summaryf, summaryopp)
 write.csv(summaryopp2, file = "summary survivalsopp2.csv")
 lamlocalopp = qplot(levels, p, data= summaryopp2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalopp
-
+summaryopp2$stage = factor(summaryopp2$stage, levels = c("f", "j", "a"))
 
 # Graph changes in height of the peak of the lambda curve
 lampeakopp = qplot(levels, maxsopp, data= summaryopp2, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Predation on juveniles, adults migrate")
 lampeakopp
 # graph changes in difference between max and min or lambda curve
 
-lamdiffopp = qplot(levels, ldiff, data= summaryopp2, geom="line", color=stage, xlab= "proportional change in survival", ylab="difference in logλs", main = "predation on juveniles, adults migrate")
+lamdiffopp = qplot(levels, ldiff, data= summaryopp2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "predation on juveniles, adults disperse")
 
 lamdiffopp + scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 
+svg(filename="lamdiff adult dispersal.svg", width=6, height=4)
+lamdiffopp+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()

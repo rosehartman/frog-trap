@@ -114,6 +114,8 @@ for (i in 1:30) maxs[i,] = survmat2.1[which(survmat2.1[,i]==maxlam[i]),]
 # data frame for summary statistics with chanes in survival of each life stage
 summary = data.frame(levels = rep(seq(.2, 2, by=.2), 3), stage = c(rep("f", 10),rep("j", 10),rep("a", 10)), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
 write.csv(summary, file = "summary survivals2.csv")
+summary$stage = factor(summary$stage, levels = c("f", "j", "a"))
+
 # graph changes in location of peak of the lambda curve
 lamlocal = qplot(levels, p, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocal
@@ -124,7 +126,10 @@ lampeak = qplot(levels, maxs, data= summary, geom="line", color=stage, xlab= "in
 lampeak
 # graph changes in difference between max and min or lambda curve
 
-lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "change in survival", ylab="difference in logλs", main = "Predation on juveniles, juvenile migration")
+lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "change in survival", ylab="δlogλ_sMAX", main = "Predation on juveniles, juvenile dispersal")
 
 lamdiff + scale_y_continuous(limits = c(0,.26)) +scale_color_manual(values=c(f="red", j="blue", a="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 
+svg(filename="lamdiff juves.svg", width=6, height=4)
+lamdiff+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()
