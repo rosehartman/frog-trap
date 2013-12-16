@@ -48,7 +48,7 @@ PatchAstochAds = function(p, states, fx, n0, npatch, nstg, tf, P, pred) {
   
   
 }
-fooAds = function(p, pred, states1) {
+fooAds = function(p, pred, states1, fx=c(150,150)) {
   lams = PatchAstochAds(p, states=states1, fx, n0, npatch, nstg, tf, P, pred)
   avelam = sum(log(lams[lams!=0]))/length(lams[lams!=0])
   

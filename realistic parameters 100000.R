@@ -39,10 +39,10 @@ o=.25 # probability of a average year
 c=.25 # probability of chytrid
 P = matrix(c(g,b,o,c), 4, 4)
 p =  seq(0,1,by=0.05)
-pred = seq (0,1, by=.2)
+pred = seq (0,1, by=.05)
 
 # apply stochastic growth function over all predation levels
-resultsStoch = ldply(pred, function(pred2){
+resultsStoch1 = ldply(pred, function(pred2){
 # calculate stochastic growth rates
 r.0 = foreach(i=1:21, .combine=c) %dopar% foo2(p=p[i], pred=pred2)
 return(r.0)
@@ -62,19 +62,27 @@ allresults = data.frame(t(rbind(resultsdet, resultsStoch, p)))
 names(allresults) = c(pred,predSt,"p")
 write.csv(allresults, file = "two stage results.csv")
 
+allpred = data.frame(t(rbind(resultsStoch1, p)))
+names(allpred) = c(pred,"p")
+write.csv(allpred, file = "allpred.csv")
+
+
 # calculate maximum predation rate
-maxpred = apply(allresults[,7:12], 2,  max)
+maxpred1 = apply(allpred[,1:21], 2,  max)
 # minimum predation rate
-minpred = as.numeric(allresults[1,7:12])
-maxp = c(1:6)
-for (i in 7:12) maxp[i-6] = allresults[which(allresults[,i]==maxpred[(i-6)]),13]
+minpred1 = as.numeric(allpred[1,1:21])
+maxp1 = c(1:21)
+for (i in 1:21) maxp1[i] = allpred[which(allpred[,i]==maxpred1[i]),22]
 
 # organize it and plot it
-summarypred = data.frame(levels = pred, maxpred = maxpred, maxp = maxp, diffpred=(maxpred-minpred))
+summarypred = data.frame(levels = (1-pred), maxpred = maxpred1, maxp = maxp1, diffpred=(maxpred1-minpred1))
 plot(summarypred$levels, summarypred$maxpred, type="l")
+peak = ggplot(summarypred, aes(x=levels, y=maxp)) +geom_line()
+peak + labs(x="predation rate", y="proportion of juveniles dispersing \n that maximizes log(lambdas)")
 
 # get the dataframe into a format ggplot will like
 library(reshape2)
+allpred2 = melt(allpred, id.vars="p", variable.name= "predation", value.name="lambda")
 allresults2 = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
 allresults2$stoch = rep(NA, 252)
 allresults2$stoch[c(1:126)]="n"
@@ -89,13 +97,44 @@ allresults2$rate[c( 106:126 ,232:252 )] = 1
 allresults2$rate = ordered(allresults2$rate, levels=c(1:6) ,
                            labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
 
+# calculate maximum growth rate
+max1 = apply(allresults[,7:12], 2,  max)
+# minimum growth rate
+min1 = as.numeric(allresults[1,7:12])
+mxp1 = c(7:12)
+for (i in 1:6) mxp1[i] = allresults[which(allresults[,(i+6)]==max1[i]),13]
+summary1 = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
+
 # plot stochastic  growth and deterministic
 e2 = ggplot(data=allresults2, 
-           aes(x=p, y=lambda, color=rate, linetype=stoch))
-e2 = e2+geom_line() + labs(y="population growth rate log(lambda)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+           aes(x=p, y=lambda))
+e2 = e2+geom_line(aes(color=rate, lty=stoch)) + labs(y="population growth rate log(lambda)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
   scale_linetype_manual(name = "model", values=c(2, 1), labels = c("deterministic", "stochastic")) +
   scale_y_continuous(limits=c(-.5, .5)) 
-e2 
+e2 + geom_point(data=summary1, aes(x=mxp, y=max1, color=as.factor(rate)))
+
+# Just deterministic
+e3 = ggplot(data=allresults2[which(allresults2$stoch=="n"),], 
+            aes(x=p, y=lambda))
+e3 = e3+geom_line(aes(color=rate)) + labs(y="population growth rate (logλ)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+  scale_y_continuous(limits=c(-.5, .5)) 
+e3 
+ # Just stochastic
+e4 = ggplot(data=allresults2[which(allresults2$stoch=="y"),], 
+            aes(x=p, y=lambda))
+e4 = e4+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1, aes(x=mxp, y=max1, color=rate))
+e4 = e4+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
+              colour = "black", lty=3) +
+  annotate("segment", x = 0, xend = 1, y = min1[1], yend = min1[1],
+           colour = "black", lty=3)
+
+svg(filename="deterministic.svg", width=6, height=4)
+e3
+dev.off()
+svg(filename="stochastic.svg", width=6, height=4)
+e4
+dev.off()
 
 # calculate probability of extinction in 500 years for the different predation rates
 tf=500

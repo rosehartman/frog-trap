@@ -90,27 +90,53 @@ survopp = foreach (i=1:20, combine=cbind) %dopar% {
   return(r)
 }
 
+fopp = foreach (i=1:10, combine=cbind) %dopar% {
+  fx1 = c(150*f[i], 150*f[i])
+  r =  ldply(p, fooopp, states1=states, fx=fx1, pred=.5)
+  return(r)
+}
+fopp = as.data.frame(fopp)
+fopp$p = p
+maxf = apply(fopp[,1:10], 2, max)
+minf = as.numeric(fopp[1,1:10])
+maxsf = fopp[1:10,]
+<<<<<<< HEAD
+for (i in 1:20) maxsf[i,] = fopp[which(fopp[,i]==maxf[i]),]
+=======
+>>>>>>> 1de473851b14e62da699025efbf29c0f4ac155e6
+summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxsopp=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
+
 survopp2 = as.data.frame(survopp)
-names(survopp2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
-survopp2$p = p
+survopp2.2 = cbind(fopp, survopp2)
+names(survopp2.2) = c(paste("f", seq(.2,2, by=.2)), paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
+survopp2.2$p = p
+survopp2.1 = melt(survopp2.2, id.vars = "p", variable.name="stage")
+survopp2.1$levels = rep(seq(.2,2, by=.2), each=21)
+survopp2.1$stage = c(rep("f", 210),rep("j", 210), rep("a", 210))
+survoppplot = ggplot(survopp2.1, aes(x=p, y=value, color=as.factor(levels), lty=stage)) + geom_line()
+survoppplot + geom_point(data=summaryopp2, aes(x=p, y=maxsopp))
 
 maxlamopp = apply(survopp2[,1:20], 2, max)
 minlamopp = as.numeric(survopp2[1,1:20])
 maxsopp = survopp2[1:20,]
 for (i in 1:20) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
 
-summaryopp = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsopp=maxlamopp, p = maxs$p, ldiff=(maxlamopp-minlamopp))
-write.csv(summaryopp, file = "summary survivalsopp.csv")
-lamlocalopp = qplot(levels, p, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
+summaryopp = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsopp=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
+summaryopp2 = rbind(summaryf, summaryopp)
+write.csv(summaryopp2, file = "summary survivalsopp2.csv")
+lamlocalopp = qplot(levels, p, data= summaryopp2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalopp
-
+summaryopp2$stage = factor(summaryopp2$stage, levels = c("f", "j", "a"))
 
 # Graph changes in height of the peak of the lambda curve
-lampeakopp = qplot(levels, maxsopp, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeakopp = qplot(levels, maxsopp, data= summaryopp2, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Predation on juveniles, adults migrate")
 lampeakopp
 # graph changes in difference between max and min or lambda curve
 
-lamdiffopp = qplot(levels, ldiff, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Difference between lambda at peak of curve and 0 for each  life \n stage at each survival level")
+lamdiffopp = qplot(levels, ldiff, data= summaryopp2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "predation on juveniles, adults disperse")
 
-lamdiffopp
+lamdiffopp + scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 
+svg(filename="lamdiff adult dispersal.svg", width=6, height=4)
+lamdiffopp+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()

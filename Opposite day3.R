@@ -18,10 +18,10 @@ resultsDO3 = ldply(pred, function(pred){
 })
 allO3 = data.frame(t(rbind(resultsDO3, resultsSO3, p)))
 names(allO3) = c(pred,predSt,"p")
-write.csv(allO#, file = "adult disppred.csv")
+write.csv(allO3, file = "adult disppred.csv")
 
 library(reshape2)
-allO = melt(allO#, id.vars="p", variable.name= "predation", value.name="lambda")
+allO = melt(allO3, id.vars="p", variable.name= "predation", value.name="lambda")
 allO$stoch = rep(NA, 252)
 allO$stoch[c(1:126)]="n"
 allO$stoch[c(127:252)] = "y"
@@ -32,7 +32,7 @@ allO$rate[c(43:63 , 169:189 )] = 4
 allO$rate[c( 64:84 , 190:210)] = 3
 allO$rate[c( 85:105 ,211:231 )] = 2
 allO$rate[c( 106:126 ,232:252 )] = 1
-allO$rate = ordered(allopp$rate, levels=c(1:6) ,
+allO$rate = ordered(allopp$rate,
                       labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
 qplot(data=allO[which(allopp$stoch=="n"),], x=p, y=lambda, color=rate, geom="line") 
 # plot stochastic  growth and deterministic
@@ -84,6 +84,19 @@ elsplotO = function(pred) {
 predO = elsplotO(pred=.5)
 
 
+fO = foreach (i=1:10, combine=cbind) %dopar% {
+  fx1 = c(150*f[i], 150*f[i])
+  r =  ldply(p, fooopp3, states1=states, fx=fx1, pred=.5)
+  return(r)
+}
+fO = as.data.frame(fO)
+fO$p = p
+maxf = apply(fO[,1:10], 2, max)
+minf = as.numeric(fO[1,1:10])
+maxsf = fO[1:10,]
+summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxlamO=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
+
+
 survO = foreach (i=1:20, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
   r =  ldply(p, fooopp3, states1=states1, pred=.5)
@@ -92,25 +105,35 @@ survO = foreach (i=1:20, combine=cbind) %dopar% {
 
 survO2 = as.data.frame(survO)
 names(survO2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
-survopp2$p = p
+survO2$p = p
+
+survOdat = melt(survO2, id.vars="p", variable.name="stage")
+survOdat$levels = rep(seq(.2,2, by=.2), each=21)
+survOplot = ggplot(survOdat, aes(x=p, y=value, color=stage)) + geom_line()
 
 maxlamO = apply(survO2[,1:20], 2, max)
 minlamO = as.numeric(survO2[1,1:20])
 maxsO = survO2[1:20,]
 for (i in 1:20) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 
-summaryO = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxsO=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
-write.csv(summaryopp, file = "summary survivalsopp.csv")
-lamlocalO = qplot(levels, p, data= summaryopp, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
+summaryO = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxlamO=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
+summaryO2 = rbind(summaryf, summaryO)
+write.csv(summaryO2, file = "summary survivalsO2.csv")
+summaryO2$stage = factor(summaryO2$stage, levels = c("f", "j", "a"))
+
+lamlocalO = qplot(levels, p, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalO
 
 
 # Graph changes in height of the peak of the lambda curve
-lampeakO = qplot(levels, maxsO, data= summaryO, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeakO = qplot(levels, maxlamO, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
 lampeakO
 # graph changes in difference between max and min or lambda curve
 
-lamdiffO = qplot(levels, ldiff, data= summaryO, geom="line", color=stage, xlab= "increase in survival", ylab="difference in lambda", main = "Difference between lambda at peak of curve and 0 for each  life \n stage at each survival level")
+lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "Predation on adults, adults disperse")
 
-lamdiffO
+lamdiffO +  scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+svg(filename="lamdiff adult predmig.svg", width=6, height=4)
+lamdiffO+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+dev.off()
 
