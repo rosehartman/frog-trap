@@ -185,7 +185,11 @@ Figure 3a. The difference between log λs at dispersal=0 and the peak  of the di
 
 Figure 3b. $δlogλ_sMAX$ when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased.
  
+<<<<<<< HEAD
 ![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff_adult_dispersal.png)
+=======
+![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult dispersal.png)
+>>>>>>> 76b26cc41438749f82761f7b512aab4a7a23861b
 
 Figure 3c. $δlogλ_sMAX$ when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased.
 
