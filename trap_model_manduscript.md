@@ -177,19 +177,23 @@ Some dispersal causes there to be some value in poor information on the populati
 
 This pattern changes with different life history strategies. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(figure 3b). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (figure 3c). However, for a given set of survival and fecundity parameters, the $δlogλ_sMAX$ is lower when adults disperse than when juveniles disperse. When adults disperse every year and experience predation, there is no longer any value in dispersal toward a trap ($δlogλ_sMAX$ = 0, figure 3d).
 
-![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff juves.png)
+![Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the survivorship of each life stage for every year type is increased or decreased. This can also be thought of as the value of poor information](figures/lamdiff_juves.png)
 
 Figure 3a. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 ($δlogλ_sMAX$) when the survivorship of each life stage for every year type is increased or decreased. 
  
- ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predation.png)
+ ![Figure 3b. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff_adult_predation.png)
 
 Figure 3b. $δlogλ_sMAX$ when juveniles disperse and adults experience predation when the survivorship of each life stage for every year type is increased or decreased.
  
+<<<<<<< HEAD
+![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff_adult_dispersal.png)
+=======
 ![Figure 3c. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult dispersal.png)
+>>>>>>> 76b26cc41438749f82761f7b512aab4a7a23861b
 
 Figure 3c. $δlogλ_sMAX$ when adults disperse and juveniles experience predation when the survivorship of each life stage for every year type is increased or decreased.
 
-![Figure 3d. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff adult predmig.png)
+![Figure 3d. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased. ](figures/lamdiff_adult_predmig.png)
 
 Figure 3d. $δlogλ_sMAX$ when adults disperse and experience predation when the survivorship of each life stage for every year type is increased or decreased.
 
@@ -324,7 +328,7 @@ To test the effect of habitat choice on the density dependent version of the mod
 
 Measuring extinction probabilities an idea of population stability in the long term. With the baseline vital rates, the population only experienced extinctions at very high predation levels (Data not shown). However, when the survival rate of adults was decreased by 40% in every scenario, the relationship between extinction probability and habitat preference was clear (figure 6). The lowest probability of extinction occurred when there was a slight preference for the low-predation patch. Extinction probabilities increased when there was total preference for the low-predation patch or preference for the high-predation patch. 
 
-![Figure 6. Probability of extinction in 500 years for the entire metapopulation versus dispersal to the high predation patch when the carrying capacity of each patch is 50 larvae per year. Average of 1000 model runs](figures/extinctino probabilities.png)
+![Figure 6. Probability of extinction in 500 years for the entire metapopulation versus dispersal to the high predation patch when the carrying capacity of each patch is 50 larvae per year. Average of 1000 model runs](figures/extinctino_probabilities.png)
 
 ### Discussion
 The density dependent scenarios also showed a unimodal relationship between dispersal to the high-predation patch and probability of extinction (Fig. 7a and b). This is similar to a model by Howe et al. (Howe et al. 1991), that found a finite percentage of sink populations increased carrying capacity of a metapopulation with density dependent dispersal. The results of this model show that habitat preference may result in similar patterns as that shown by density dependent dispersal with different amounts of sink habitat.
