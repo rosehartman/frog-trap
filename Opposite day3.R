@@ -97,43 +97,56 @@ maxsf = fO[1:10,]
 summaryf = data.frame(levels = seq(.2, 2, by=.2), stage = rep("f", 10), maxlamO=maxf, p = maxsf$p[1:10], ldiff=(maxf-minf))
 
 
-survO = foreach (i=1:20, combine=cbind) %dopar% {
+survO = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
   r =  ldply(p, fooopp3, states1=states1, pred=.5)
   return(r)
 }
 
 survO2 = as.data.frame(survO)
-names(survO2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
+names(survO2) = surv[,1]
 survO2$p = p
 
-survOdat = melt(survO2, id.vars="p", variable.name="stage")
-survOdat$levels = rep(seq(.2,2, by=.2), each=21)
-survOplot = ggplot(survOdat, aes(x=p, y=value, color=stage)) + geom_line()
+survOdat = melt(survO2, id.vars="p")
+survOdat$levels = surv[,1]
+survOplot = ggplot(survOdat, aes(x=p, y=value)) + geom_line()
 
-maxlamO = apply(survO2[,1:20], 2, max)
-minlamO = as.numeric(survO2[1,1:20])
-maxsO = survO2[1:20,]
-for (i in 1:20) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
+maxlamO = apply(survO2[,1:12], 2, max)
+minlamO = as.numeric(survO2[1,1:12])
+maxsO = survO2[1:12,]
+for (i in 1:12) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 
-summaryO = data.frame(levels = rep(seq(.2, 2, by=.2), 2), stage = c(rep("j", 10),rep("a", 10)), maxlamO=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
-summaryO2 = rbind(summaryf, summaryO)
-write.csv(summaryO2, file = "summary survivalsO2.csv")
-summaryO2$stage = factor(summaryO2$stage, levels = c("f", "j", "a"))
+summaryO = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
+write.csv(summaryO, file = "summary survivalsO tradeoff.csv")
 
-lamlocalO = qplot(levels, p, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
+lamlocalO = qplot(levels, p, data= summaryO, geom="line",xlab= "investment in juves", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocalO
 
 
 # Graph changes in height of the peak of the lambda curve
-lampeakO = qplot(levels, maxlamO, data= summaryO2, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeakO = qplot(levels, maxlamO, data= summaryO, geom="line",  xlab= "investment in juves", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
 lampeakO
 # graph changes in difference between max and min or lambda curve
 
-lamdiffO = qplot(levels, ldiff, data= summaryO2, geom="line", color=stage, xlab= "proportional change in survival", ylab="δlogλ_sMAX", main = "Predation on adults, adults disperse")
+lamdiffO = qplot(levels, ldiff, data= summaryO, geom="line",xlab= "investment in juves", ylab="δlogλ_sMAX", main = "Predation on adults, adults disperse")
 
-lamdiffO +  scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+lamdiffO +  scale_y_continuous(limits=c(0, .26))
 svg(filename="lamdiff adult predmig.svg", width=6, height=4)
-lamdiffO+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+lamdiffO+ scale_y_continuous(limits=c(0, .26)) 
 dev.off()
 
+# Add the data from the different scenarios together and plot them
+summary$scenario = rep("1", nrow(summary))
+summaryads$scenario = rep("2",nrow(summaryads))
+summaryopp$scenario = rep("3", nrow(summaryopp))
+summaryO$scenario = rep("4", nrow(summaryO))
+summarytotal = rbind(summary, summaryads, summaryopp, summaryO)
+summarytotal$scenario = as.factor(summarytotal$scenario)
+
+lamdifftot = qplot(levels, ldiff, data = summarytotal, geom="line", color=scenario, xlab="proportional investment in juveniles", ylab= "δlogλ_sMAX")
+lamdifftot + scale_color_manual( values=c("red","blue","green","black"), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
+
+
+svg(filename="lamdiff_total.svg", width=8, height=4)
+lamdiffO+ scale_y_continuous(limits=c(0, .35)) 
+dev.off()

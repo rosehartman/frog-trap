@@ -24,7 +24,9 @@ tf=500
 pred= .5
 
 # matrix of different survival scenarios
-surv = matrix(c(seq(.2, 2, by=.2), rep(1, 20), seq(.2, 2, by=.2)), ncol=2)
+survJ = c(.8, .9, 1, 1.1, 1.2, 1.5, 1.8, 2, 2.2, 3, 5, 10)
+surv = matrix(c( survJ, 1/survJ), ncol=2)
+
 
 # extinction probabilities for different predation scenarios with lower adult survival to show shape of curve better
 states=cbind(states[,1], states[,2]*.6)
@@ -56,43 +58,6 @@ exmat2.1$stage = c(rep("j", 7), rep("a", 7))
 exmat2.1$surv = rep(seq(.2,1.4, by=.2), 2)
 write.csv(exmat2.1, file="exmattwostage.csv")
 
-# calculate stochastic lambdas for all changes in survival rate
-survmat = foreach (i=1:20, combine=cbind) %dopar% {
-  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
-  r =  ldply(p, foo21,states1=states1)
-  return(r)
-}
-
-# this time let's change the fecundidties
-f = seq(.2,2, by=.2)
-fmat = foreach (i=1:10, combine=cbind) %dopar% {
-  fx1 <- c(150*f[i], 150*f[i])
-  r =  ldply(p, foo21,states1=states, fx=fx1)
-  return(r)
-}
-fmat = as.data.frame(fmat)
-names(fmat) = f
-fmat$p = p
-fmat2 = melt(fmat, id.vars = "p", variable.name="surv")
-fmat2$stage = rep("f", 210)
-fmat2$surv = rep(seq(.2,2, by=.2), each=21)
- 
-# organize the data and save it as an csv
-survmat2 = as.data.frame(survmat)
-names(survmat2) = c(paste("j", seq(.2,2, by=.2)), paste("a", seq(.2,2, by=.2)))
-survmat2$p = p
-write.csv(survmat2, file="survmat2.csv")
-survmat2.1 = cbind(fmat[1:10], survmat2[2:22])
-
-# Get it into a format ggplot will like
-library(reshape2)
-survmat3 = melt(survmat2.1, id.vars = "p", variable.name="surv")
-survmat3$stage = c(rep("f", 210), rep("j", 210), rep("a", 210))
-survmat3$surv = rep(seq(.2,2, by=.2), each=21)
-
-# see what it looks like
-s = ggplot(data=survmat3, aes(x=p, y=value, color=as.factor(surv))) + geom_line()
-s
 
 exmat3 = melt(exmat2.1, id.vars = c("stage", "surv"), variable.name= "p", value.name="exprob")
 exmat3$surv = as.factor(exmat3$surv)
@@ -106,30 +71,49 @@ explot = ggplot(data=exmat3, aes(x=p, y= exprob, color=surv, lty=stage)) + geom_
   guides(color=guide_legend(ncol=2, title="change in survival"))
 explot
 # find the proportion of juveniles moving that maximizes the growth rate with changes in larval survival
-maxlam = apply(survmat2.1[,1:30], 2, max)
-minlam = as.numeric(survmat2.1[1,1:30])
-maxs = survmat2.1[1:30,]
-for (i in 1:30) maxs[i,] = survmat2.1[which(survmat2.1[,i]==maxlam[i]),]
+maxlam = apply(survmat2[,1:12], 2, max)
+minlam = as.numeric(survmat2[1,1:12])
+maxs = survmat2[1:12,]
+for (i in 1:12) maxs[i,] = survmat2[which(survmat2[,i]==maxlam[i]),]
+
+
+# calculate stochastic lambdas for all changes in survival rate
+survmat = foreach (i=1:12, combine=cbind) %dopar% {
+  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+  r =  ldply(p, foo21,states1=states1)
+  return(r)
+}
+
+
+# organize the data and save it as an csv
+survmat2 = as.data.frame(survmat)
+names(survmat2) = surv[,1]
+survmat2$p = p
+write.csv(survmat2, file="survmat tradeoff2.csv")
+#survmat2.1 = cbind(fmat[1:10], survmat2[2:22])
+
+# Get it into a format ggplot will like
+library(reshape2)
+
 
 # data frame for summary statistics with chanes in survival of each life stage
-summary = data.frame(levels = rep(seq(.2, 2, by=.2), 3), stage = c(rep("f", 10),rep("j", 10),rep("a", 10)), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
-write.csv(summary, file = "summary survivals2.csv")
-summary$stage = factor(summary$stage, levels = c("f", "j", "a"))
+summary = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
+write.csv(summary, file = "summary survivals tradeoff.csv")
 
 # graph changes in location of peak of the lambda curve
-lamlocal = qplot(levels, p, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
+lamlocal = qplot(levels, p, data= summary, geom="line", xlab= "increase in survival", ylab="migration proportion at \n peak of migration/lambda curve", main = "Proporiton of juves \n migrating that maximizes growth")
 lamlocal
 
 
 # Graph changes in height of the peak of the lambda curve
-lampeak = qplot(levels, maxs, data= summary, geom="line", color=stage, xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
+lampeak = qplot(levels, maxs, data= summary, geom="line", xlab= "increase in survival", ylab="lambda at \n peak of migration/lambda curve", main = "Maximum growth rate for each  life \n stage at each survival level")
 lampeak
 # graph changes in difference between max and min or lambda curve
 
-lamdiff = qplot(levels, ldiff, data= summary, geom="line", color=stage, xlab= "change in survival", ylab="δlogλ_sMAX", main = "Predation on juveniles, juvenile dispersal")
+lamdiff = qplot(levels, ldiff, data= summary[5:12,], geom="line", xlab= "investment in juveniles", ylab="δlogλ_sMAX", main = "Predation on juveniles, juvenile dispersal")
 
-lamdiff + scale_y_continuous(limits = c(0,.26)) +scale_color_manual(values=c(f="red", j="blue", a="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
+lamdiff + scale_y_continuous(limits = c(0,.2))
 
-svg(filename="lamdiff juves.svg", width=6, height=4)
+svg(filename="tradeoff juves.svg", width=6, height=4)
 lamdiff+ scale_y_continuous(limits=c(0, .26)) +scale_color_manual(values=c("f"="red", "j"="blue", "a"="green"), labels=c(f="fecundity", a="adult survival",j="juvenile recruitment"))
 dev.off()
