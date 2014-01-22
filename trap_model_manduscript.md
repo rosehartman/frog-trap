@@ -90,6 +90,17 @@ $$\frac{\delta \log \lambda_s}{\delta \log a_{ij}} =
    
 We repeated the stochastic elasticity calculation for 100000 years and plotted the elasticity of each non-zero matrix entry when the predation was 50% and varied dispersal to the high predation patch between 0 and 1. 
 
+### Model analytics
+
+To accompany our stochastic simulations, we analyzed simplified version of the model, calculating stochastic using Using Doak's [-@Doak2005] modification of  Tuljapurkar’s [Tuljapurkar1990] approximation:
+
+$$\log \lambda_s = \log \hat \lambda_d - \frac{1}{2} \left(\frac{\tau}{\hat {\lambda_d}}\right)^2$$
+$$\tau^2 = \sum_i \sum_j \rho_{i,j} \sigma_i \sigma_j s_i s_j$$
+
+where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, and $\rho_{ij}$ their correlations.
+
+For simplicity, in our analytic examinations we assume that $S_1 = S_2 = S$, and that $\sigma_s = 0$, $J_1 = J_2 = J$, and $\sigma_{J_1} = \sigma_{J_2} = \sigma_J$.  These changes do not have qualitative effects on our results.  **[We need to check this by at least running simulations with no stochasticity in adults]**
+
 ### Global elasticity and the value of poor information
 
 The difference between the growth rate when juveniles always disperse to the low predation patch (perfect habitat site selection), and the peak of the attractiveness-growth rate curve, can be thought of as the value of having imperfect information when making site choices. We will refer to this value as $δlogλ_sMAX$. $δlogλ_sMAX$ may change depending on the survival of the life stages that use that information. We held predation constant at 50%. We defined a trade-off between juvenile and adult survival by multiplyig the juvenile recruitment rate by 40% to 1000% while simultaniously changing the adult survival by the inverse of the change in juvenile survival.
@@ -146,6 +157,18 @@ Figure 1a. Growth rate  of the two-patch metapopulation versus dispersal to the 
 ![Figure 1b. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochastic.png)
 
 Figure 1b. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) versus dispersal to the high-predation patch with stochastic survivorship. The maximum growth rate for each predation level (Marked with circle) occurs at lower dispersal towrad the trap patch with increasing predation. The maximum increase in $\log \lambda_s$ ($δlogλ_sMAX$, marked with vertical dotted line) decreases with increasing predation. 
+
+We derived an expression for stochastic growth of the simplified model:
+
+$$\log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)$$
+
+where
+
+$$v = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$.
+
+To determine the conditions for $\log \lambda_max$, we take the derivative and set it to zero:
+
+$$\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{4df^2}{(S+v)^2 v^2} + \frac{8d^2f^3p}{(S+v)^2 v^4} + \frac{8 d^2f^3p}{(S+v)^3 v^3}\right) = 0$$
 
 
 ### Spatial autocorrelation
