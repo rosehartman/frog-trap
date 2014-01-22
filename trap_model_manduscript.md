@@ -1,6 +1,7 @@
 # Building a better frog trap: a theoretical model of prey habitat choice in a landscape with introduced predators. 
 
 Rosemary Hartman
+and Noam Ross
 
 ## Introduction
 
@@ -57,7 +58,7 @@ $$N_t = \begin{bmatrix}
           n_J1 \\
           n_S1 \\
           n_J2 \\
-          n_S1
+          n_S2
         \end{bmatrix}$$
         
 ### Deterministic Growth
