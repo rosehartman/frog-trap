@@ -12,12 +12,12 @@ library(reshape2)
 library(ggplot2)
 # Noam, I don't know if your server has more cores, so register
 # however many it has here.
-registerDoParallel(cores=2)
+registerDoParallel(cores=22)
 
 #load the functions I have defined to run this puppy
-source('~/Desktop/frog-trap/R/foo.R')
-source('~/Desktop/frog-trap/R/lambda two stage.R')
-source('~/Desktop/frog-trap/R/Ex1.R')
+source('R/foo.R')
+source('R/lambda two stage.R')
+source('R/Ex1.R')
 
 # define all the variables
 npatch = 2 # number of patches
@@ -93,7 +93,7 @@ dev.off()
 # Re-run the model with varying degrees of spatial autocorrelation
 # and 1 million time steps
 
-source('~/Desktop/frog-trap/R/foo.R')
+source('R/foo.R')
 ac = seq(0,1, by=.1) # vector of various degrees of autocorrelation
 
 # Run the model for all dispersal rates whith different levels
@@ -160,7 +160,7 @@ write.csv(summary, file = "summary survivals million.csv")
 
 
 # predation only effects the adults instead of teh juveniles.
-source('~/Desktop/frog-trap/R/opposite day functions.R')
+source('R/opposite day functions.R')
 # Calculate growth-dispersal curves for various changes in adult/juv survival tradeoff
 survAds = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
@@ -185,7 +185,7 @@ write.csv(summaryads, file = "summary survivalsads million.csv")
 
 # Now lets have predation effect the juveniles but have the adults be
 # the migratory life stage.
-source('~/Desktop/frog-trap/R/opposite day2 functions.R')
+source('R/opposite day2 functions.R')
 
 # growth curves with different changes in survival
 survopp = foreach (i=1:12, combine=cbind) %dopar% {
@@ -212,7 +212,7 @@ write.csv(summaryopp, file = "summary survivalsopp million.csv")
 
 # Now lets have predation effect the adults AND have the adults be
 # the migratory life stage.
-source('~/Desktop/frog-trap/R/opposite day3 functions.R')
+source('R/opposite day3 functions.R')
 
 survO = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
