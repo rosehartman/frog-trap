@@ -17,7 +17,7 @@ n0 = c(1000,20,1000,20) # initial populations
 fx = c(150,150) # fecundity vector
 M = 50 # degree of density dependence
 nstg=2 # of stages
-tf=500000
+tf=100000
 
 
 # juvenile, and adult survivorships in different types of years
