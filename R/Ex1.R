@@ -1,5 +1,5 @@
 # function to calculate extinction when predation changes
-source('~/Desktop/frog-trap/R/PatchDDstoch.R')
+source('R/PatchDDstoch.R')
 Ex = function(p, pred2) {
   Runmat = PatchDDstoch(p, M, states, fx, n0, npatch, nstg, tf=500, P, pred=pred2)[1,]
   if (Runmat[500]==0) ex = 1 else ex = 0
