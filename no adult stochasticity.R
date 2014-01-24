@@ -96,27 +96,14 @@ e4a = ggplot(data=allresults2a,
 e4a = e4a+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
   scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1a, aes(x=mxp, y=max1, color=rate))
 e4a = e4a+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
-=======
-summary1 = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
-write.csv(summary1, file="summary_million1.csv")
-
-# plot stochastic simulations
-e4 = ggplot(data=allresults2, 
-            aes(x=p, y=lambda))
-e4 = e4+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
-  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1, aes(x=mxp, y=max1, color=rate))
-e4 = e4+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
                   colour = "black", lty=3) +
   annotate("segment", x = 0, xend = 1, y = min1[1], yend = min1[1],
            colour = "black", lty=3)
 
 svg(filename="stochastic1.svg", width=6, height=4)
-<<<<<<< HEAD
+
 e4a
-=======
-e4
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
+
 dev.off()
 
 
@@ -124,11 +111,9 @@ dev.off()
 # Re-run the model with varying degrees of spatial autocorrelation
 # and 1 million time steps
 
-<<<<<<< HEAD
-source('~/Desktop/frog-trap/R/foo.R')
-=======
+
 source('R/foo.R')
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
+
 ac = seq(0,1, by=.1) # vector of various degrees of autocorrelation
 
 # Run the model for all dispersal rates whith different levels
