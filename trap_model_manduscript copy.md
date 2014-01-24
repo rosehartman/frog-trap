@@ -1,7 +1,14 @@
 # Building a better frog trap: The benifits of mal-adaptive habitat choice for metapopulations with different life history strategies.
 
-Rosemary Hartman
-and Noam Ross
+Rosemary "Frog Queen" Hartman
+
+and Noam "Sex Panther" Ross
+
+
+## Abstract
+
+Anthropogenic change can create ecological traps when traditional habitat selection cues are altered. For example, native frogs may not recognize the presence of fish stocked in historically fishless mountain lakes, and breed in these lakes despite predation. Maladaptive habitat selection can lower metapopulation growth rates, however, we present a model demonstrating some disperesal toward an ecological trap can increase metapopulation growth rates in certain senarios.  In a temporaly stochastic environment, bet-hedging causes the metapopulation growth rate versus the proportion of juveniles dispersing toward a trap to follow a hump-shaped curve. However, the benefits of bet-hedging change depending on which life stage disperses and which experiences predation. 
+
 
 ## Introduction
 
