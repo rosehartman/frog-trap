@@ -17,9 +17,15 @@ library(doParallel)
 registerDoParallel(cores=2)
 
 #load the functions I have defined to run this puppy
+<<<<<<< HEAD
+source('~/Desktop/frog-trap/R/foo.R')
+source('~/Desktop/frog-trap/R/lambda two stage.R')
+source('~/Desktop/frog-trap/R/Ex1.R')
+=======
 source('R/foo.R')
 source('R/lambda two stage.R')
 source('R/Ex1.R')
+>>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 # define all the variables
 npatch = 2 # number of patches
@@ -60,11 +66,18 @@ names(allresults) = c(pred,"p")
 write.csv(allresults, file = "twostage_million1.csv")
 
 # get the dataframe into a format ggplot will like
+<<<<<<< HEAD
+allresults2a = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
+allresults2a$rate = c(NA, 252)
+allresults2a$rate = rep(6:1, each=21)
+allresults2a$rate = ordered(allresults2a$rate, levels=c(1:6) ,
+=======
 library(reshape2)
 allresults2 = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
 allresults2$rate = c(NA, 252)
 allresults2$rate = rep(6:1, each=21)
 allresults2$rate = ordered(allresults2$rate, levels=c(1:6) ,
+>>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
                            labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
 
 # calculate maximum growth rate
@@ -73,21 +86,24 @@ max1 = apply(allresults[1:6], 2,  max)
 min1 = as.numeric(allresults[1,1:6])
 mxp1 = c(1:6)
 for (i in 1:6) mxp1[i] = allresults[which(allresults[,(i)]==max1[i]),7]
-summary1 = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
-write.csv(summary1, file="summary_million1.csv")
+<<<<<<< HEAD
+summary1a = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
+write.csv(summary1a, file="summary_million1.csv")
 
 # plot stochastic simulations
-e4 = ggplot(data=allresults2, 
+e4a = ggplot(data=allresults2a, 
             aes(x=p, y=lambda))
-e4 = e4+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
-  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1, aes(x=mxp, y=max1, color=rate))
-e4 = e4+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
+e4a = e4a+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1a, aes(x=mxp, y=max1, color=rate))
+e4a = e4a+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
                   colour = "black", lty=3) +
   annotate("segment", x = 0, xend = 1, y = min1[1], yend = min1[1],
            colour = "black", lty=3)
 
 svg(filename="stochastic1.svg", width=6, height=4)
-e4
+
+e4a
+
 dev.off()
 
 
@@ -95,7 +111,9 @@ dev.off()
 # Re-run the model with varying degrees of spatial autocorrelation
 # and 1 million time steps
 
+
 source('R/foo.R')
+
 ac = seq(0,1, by=.1) # vector of various degrees of autocorrelation
 
 # Run the model for all dispersal rates whith different levels
@@ -162,7 +180,11 @@ write.csv(summary, file = "summary survivals million1.csv")
 
 
 # predation only effects the adults instead of teh juveniles.
+<<<<<<< HEAD
+source('~/Desktop/frog-trap/R/opposite day functions.R')
+=======
 source('R/opposite day functions.R')
+>>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 # Calculate growth-dispersal curves for various changes in adult/juv survival tradeoff
 survAds = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
@@ -187,7 +209,11 @@ write.csv(summaryads, file = "summary survivalsads million1.csv")
 
 # Now lets have predation effect the juveniles but have the adults be
 # the migratory life stage.
+<<<<<<< HEAD
+source('~/Desktop/frog-trap/R/opposite day2 functions.R')
+=======
 source('R/opposite day2 functions.R')
+>>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 # growth curves with different changes in survival
 survopp = foreach (i=1:12, combine=cbind) %dopar% {
@@ -214,7 +240,11 @@ write.csv(summaryopp, file = "summary survivalsopp million1.csv")
 
 # Now lets have predation effect the adults AND have the adults be
 # the migratory life stage.
+<<<<<<< HEAD
+source('~/Desktop/frog-trap/R/opposite day3 functions.R')
+=======
 source('R/opposite day3 functions.R')
+>>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 survO = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])

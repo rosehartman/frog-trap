@@ -12,6 +12,7 @@ library(reshape2)
 library(ggplot2)
 # Noam, I don't know if your server has more cores, so register
 # however many it has here.
+=======
 registerDoParallel(cores=22)
 
 #load the functions I have defined to run this puppy
@@ -94,6 +95,7 @@ dev.off()
 # and 1 million time steps
 
 source('R/foo.R')
+pred = .5
 ac = seq(0,1, by=.1) # vector of various degrees of autocorrelation
 
 # Run the model for all dispersal rates whith different levels
@@ -160,6 +162,7 @@ write.csv(summary, file = "summary survivals million.csv")
 
 
 # predation only effects the adults instead of teh juveniles.
+
 source('R/opposite day functions.R')
 # Calculate growth-dispersal curves for various changes in adult/juv survival tradeoff
 survAds = foreach (i=1:12, combine=cbind) %dopar% {
@@ -185,6 +188,7 @@ write.csv(summaryads, file = "summary survivalsads million.csv")
 
 # Now lets have predation effect the juveniles but have the adults be
 # the migratory life stage.
+
 source('R/opposite day2 functions.R')
 
 # growth curves with different changes in survival
@@ -212,6 +216,7 @@ write.csv(summaryopp, file = "summary survivalsopp million.csv")
 
 # Now lets have predation effect the adults AND have the adults be
 # the migratory life stage.
+
 source('R/opposite day3 functions.R')
 
 survO = foreach (i=1:12, combine=cbind) %dopar% {
