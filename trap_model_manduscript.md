@@ -82,13 +82,13 @@ The environmental state may vary independently in a real two-patch system, but i
 
 ### Local Elasticity Analysis
 
-To test the effect of small perturbations in the vital rates of the stochastic model, we calculated the elasticity of the stochastic growth rate using numerical simulation (Caswell 2001). Briefly, we adapting the code from Caswell (2001), to generate a series of metapopulation projection matrices based on the randomly fluctuating environmental states described above. We used this to generate a series of population structure vectors (v) and growth rates (R) projected forward in time and a series of reproductive value vectors (w) projected backwards in time. The elasticity matrix is:
+To test the effect of small perturbations in the vital rates of the stochastic model, we calculated the elasticity of the stochastic growth rate using numerical simulation (Caswell 2001). Briefly, we adapted code from Caswell (2001) to generate a series of metapopulation projection matrices based on the randomly fluctuating environmental states described above. We used this to generate a series of population structure vectors $(v)$ and growth rates $(R)$ projected forward in time and a series of reproductive value vectors $(w)$ projected backwards in time. The elasticity matrix is:
 
 $$\frac{\delta \log \lambda_s}{\delta \log a_{ij}} = 
    \lim_{tf \rightarrow \infty} \frac{1}{tf} \sum_{t=0}^{T-1}
    \frac{(v(t+1)w^T(t) \circ A_t}{R_t v^T (t+1) w (t+1)}$$
    
-We repeated the stochastic elasticity calculation for 100000 years and plotted the elasticity of each non-zero matrix entry when the predation was 50% and varied dispersal to the high predation patch between 0 and 1. 
+We repeated the stochastic elasticity calculation for 1,000,000 iterations and plotted the elasticity of each non-zero matrix entry when the predation was 50% and varied dispersal to the high predation patch between 0 and 1. 
 
 ### Model analytics
 
@@ -99,7 +99,7 @@ $$\tau^2 = \sum_i \sum_j \rho_{i,j} \sigma_i \sigma_j s_i s_j$$
 
 where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, and $\rho_{ij}$ their correlations.
 
-For simplicity, in our analytic examinations we assume that $S_1 = S_2 = S$, and that $\sigma_s = 0$, $J_1 = J_2 = J$, and $\sigma_{J_1} = \sigma_{J_2} = \sigma_J$.  These changes do not have qualitative effects on our results.  **[We need to check this by at least running simulations with no stochasticity in adults]**
+For simplicity, in our analytic examinations we assume that $S_1 = S_2 = S$, $\sigma_s = 0$, $J_1 = J_2 = J$, and $\sigma_{J_1} = \sigma_{J_2} = \sigma_J$.  These changes do not have qualitative effects on our results.  **[We need to check this by at least running simulations with no stochasticity in adults]**
 
 ### Global elasticity and the value of poor information
 
@@ -137,14 +137,14 @@ $$A4 = \begin{bmatrix}
 
 ### Deterministic Growth
 
-We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate ($\lambda$) when predation was increased (see figure 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (table 2a), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
+We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate $(\lambda)$ when predation was increased (see figure 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (table 2a), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
 
 patch|Fecundity|Migrants from predator patch|Migrants from patch non-predator patch|Adult survival
 -------|-------|---------|---------|---------
 Predator|0.1190|0.0397|0.0794|0.0952
 Non-predator|0.2381|0.0794|0.1587|0.1905
 
-Table 2a: Elasticities of λ to changes in the non-zero matrix elements of the metapopulation projection matrix when they have equal dispersal and predation is 50% in the high predation patch.
+Table 2a: Elasticities of $\lambda$ to changes in the non-zero matrix elements of the metapopulation projection matrix when they have equal dispersal and predation is 50% in the high predation patch.
 
 ### Stochastic growth
 
@@ -160,28 +160,29 @@ Figure 1b. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) vers
 
 We derived an expression for stochastic growth of the simplified model:
 
-$$\log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)$$
+$$\log \lambda_s = \log \left(\frac{S + V}{2}\right) - 2 \left(\frac{df}{(S + V)V}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right) \tag{1}$$
 
 where
 
-$$v = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$.
+$$V = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$.
 
-To determine the conditions for $\log \lambda_max$, we take the derivative and set it to zero:
+To determine the conditions for $\log \lambda_{max}$, we take the derivative with respect to $d$ and set it to zero:
 
-$$\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{4df^2}{(S+v)^2 v^2} + \frac{8d^2f^3p}{(S+v)^2 v^4} + \frac{8 d^2f^3p}{(S+v)^3 v^3}\right) = 0$$
+$$\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+V)V} - (2+\rho)\sigma^2 \left(\frac{4df^2}{(S+V)^2 V^2} + \frac{8d^2f^3p}{(S+V)^2 V^4} + \frac{8 d^2f^3p}{(S+V)^3 V^3}\right) = 0 \tag{2}$$
 
+The value of $d$ which solves this equation, $d_{opt}$, is the rate of dispersal to the patch with predation at which growth rates are maximized. An analytic expression of $d_{opt}$ is intractable, but we can derive useful intuition from the expressions of $\log \lambda_s$ and $\frac{\partial \log \lambda_s}{\partial d} = 0$ above.
 
 ### Spatial autocorrelation
 
-As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases. 
+As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases. This follows equation (1), which is strictly decreasing in $\rho_{J_1 J_2}$.
 
 ![Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.png)
 
 Figure 5. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.
 
-###Elasticity
+### Elasticity
 
-The elasticity of log λs to changes in each entry of the metapopulation projection matrix depends greatly on how attractive the patch is and what the predation percentage is. When the predation percentage is 50% and both patches are equally attractive, the metapopulation growth rate is most elastic to changes in survivorship of the no predation patch, especially fecundity and adult survival (Table 2). 
+The elasticity of $\log \lambda_s$ to changes in each entry of the metapopulation projection matrix depends greatly on how attractive the patch is and what the predation percentage is. When the predation percentage is 50% and both patches are equally attractive, the metapopulation growth rate is most elastic to changes in survivorship of the no predation patch, especially fecundity and adult survival (Table 2). 
 
 patch|Fecundity|Migrants from predator patch|Migrants from patch non-predator patch|Adult survival
 Predator|0.2953|0.0904|0.1963|0.3333
