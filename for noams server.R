@@ -120,7 +120,7 @@ resultsSynch = ldply(ac, function(ac){
 # organize the output
 resultssynch1 = data.frame(t(rbind(p,  resultsSynch)))
 write.csv(resultssynch1, file = "resultssynch1.csv")
-names(resultssynch1) = c("p", ac)
+names(resultssynch1) = c(ac, "p")
 
 resultssynch2 = melt(resultssynch1, id.vars= c("p"))
 resultssynch2$rate = rep(NA, 231)
