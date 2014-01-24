@@ -1,5 +1,5 @@
-source('~/Desktop/frog-trap/R/PatchAstoch2.R')
-source('~/Desktop/frog-trap/R/PatchAstoch2s.R')
+source('R/PatchAstoch2.R')
+source('R/PatchAstoch2s.R')
 # function to calculate stochastic lambdas with different survivals
 foo21 = function(p, states1, fx=c(150,150)) {
   lams = PatchAstoch2(p, states1, fx, n0, npatch, nstg, tf=100000, P, pred=.5)

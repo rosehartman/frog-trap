@@ -1,6 +1,6 @@
 # It's opposite day! Therefore, I am going to see what happens when 
 # predation only effects the adults instead of teh juveniles.
-source('~/Desktop/frog-trap/R/opposite day functions.R')
+source('R/opposite day functions.R')
 
 # apply stochastic growth function over all predation levels
 resultsStochAds = ldply(pred, function(pred2){

@@ -1,6 +1,6 @@
 # Now lets have predation effect the adults AND have the adults be
 # the migratory life stage.
-source('~/Desktop/frog-trap/R/opposite day3 functions.R')
+source('R/opposite day3 functions.R')
 
 # apply stochastic growth function over all predation levels
 resultsSO3 = ldply(pred, function(pred2){

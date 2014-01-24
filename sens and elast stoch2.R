@@ -1,6 +1,6 @@
 # Calculate stochastic sensitivities
 
-source('~/Desktop/frog-trap/R/StochSens.R')
+source('R/StochSens.R')
 
 # create an array of projection matricies for each time step
 As <- replicate(tf, Getmat(p=.5, state, fx, n0, npatch, nstg, P, pred=.5))

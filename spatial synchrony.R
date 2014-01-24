@@ -1,6 +1,6 @@
 # Re-run the model with varying degrees of spatial autocorrelation
 
-source('~/Desktop/frog-trap/R/foo.R')
+source('R/foo.R')
 
 npatch = 2 # number of patches
 n0 = c(1000,20,1000,20) # initial populations

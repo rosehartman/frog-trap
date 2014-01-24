@@ -7,9 +7,9 @@ library(foreach)
 library(doParallel)
 registerDoParallel(cores=2)
 #load the functions I have defined to run this puppy
-source('~/Desktop/frog-trap/R/foo.R')
-source('~/Desktop/frog-trap/R/lambda two stage.R')
-source('~/Desktop/frog-trap/R/Ex1.R')
+source('R/foo.R')
+source('R/lambda two stage.R')
+source('R/Ex1.R')
 
 # define all the variables
 npatch = 2 # number of patches
