@@ -76,9 +76,9 @@ Environmental state | Juvenile recruitment | adult survival | fecundity
 
 Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased larval, juvenile, and adult survival. The “faliure” state is one in which a bad water year causes very few juveniles to recruit into the population.
 
-We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate ($\lambda$) when predation was increased (Fig. 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (table 2), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
+We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate ($\lambda$) when predation was increased (Fig. 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (Table 2), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
 
-![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship. ](figures/deterministic.png)
+![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship. ](figures/deterministicbw.png)
 
 Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship.
 
@@ -96,7 +96,7 @@ We then introduced environmental stochasticity to the model by allowing each pat
 
 Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. Increasing the dispersal to the high-predation patch  increases the growth rate in a uni-model relationship (figure 2). The peak (marked with points on each curve) occurs near 50% of juveniles  dispersing to the high-predation patch when predation is low, and  moves towards greater preference for the low-predation patch as the amount of predation increases. Some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch, but $\log \lambda_s$ is maximized when the larger percentage goes to the low predation patch. Even with 80% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. If the patch is a total sink (100% predation), their is no longer a uni-modal relationhsip and $\log \lambda_s$ is maximized at total avoidance of the sink.
 
-![Figure 2. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochastic.png)
+![Figure 2. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochasticbw.png)
 
 Figure 2. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) versus dispersal to the high-predation patch with stochastic survivorship. The maximum growth rate for each predation level (Marked with circle) occurs at lower dispersal towrad the trap patch with increasing predation. The maximum increase in $\log \lambda_s$ ($δlogλ_sMAX$, marked with vertical dotted line) decreases with increasing predation. 
 
@@ -130,7 +130,7 @@ The environmental state may vary independently in a real two-patch system, but i
 
 As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases (Fig. 3). 
 
-![Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.svg)
+![Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellationbw.svg)
 
 Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of one million years.
 
@@ -175,7 +175,7 @@ $$A4 = \begin{bmatrix}
 
 Differences in life history change the magnitude of $δlogλ_sMAX$. If adults experince predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap (Fig. 4). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (Fig 4). However, for a given set of survival and fecundity parameters, the $δlogλ_sMAX$ is lower when adults disperse than when juveniles disperse. When adults disperse every year and experience predation, there is no longer any value in dispersal toward a trap ($δlogλ_sMAX$ = 0, Fig. 4).
 
-![Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival.](figures/lamdiff_total.png)
+![Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival.](figures/lamdiff_totalbw.png)
 
 Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival. 
 

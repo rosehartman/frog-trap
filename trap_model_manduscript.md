@@ -133,24 +133,24 @@ $$A4 = \begin{bmatrix}
 
 We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate $(\lambda)$ when predation was increased (see Fig 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (table 2), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
 
+![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship. ](figures/deterministicbw.png)
+
+Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship.
+
 patch|Fecundity|Migrants from predator patch|Migrants from patch non-predator patch|Adult survival
 -------|-------|---------|---------|---------
 Predator|0.1190|0.0397|0.0794|0.0952
 Non-predator|0.2381|0.0794|0.1587|0.1905
 
-Table 2a: Elasticities of $\lambda$ to changes in the non-zero matrix elements of the metapopulation projection matrix when they have equal dispersal and predation is 50% in the high predation patch.
+Table 2: Elasticities of $\lambda$ to changes in the non-zero matrix elements of the metapopulation projection matrix when they have equal dispersal and predation is 50% in the high predation patch.
 
 ### Stochastic growth
 
 Stochastic growth rate decreased with increasing predation, and was always lower than the deterministic growth rate when they had the same average vital rates. Increasing the dispersal to the high-predation patch  increases the growth rate in a uni-model relationship (Fig. 2). The peak (marked with points on each curve) occurs near 50% of juveniles  dispersing to the high-predation patch when predation is low, and  moves towards greater preference for the low-predation patch as the amount of predation increases. Some dispersal to the high-predation patch always gives a greater growth rate than total avoidance of the high-predation patch, but $\log \lambda_s$ is maximized when the larger percentage goes to the low predation patch. Even with 80% predation (sink habitat), some dispersal to the sink patch results in a greater $\log \lambda_s$ than total avoidance of the sink. If the patch is a total sink (100% predation), their is no longer a uni-modal relationship and $\log \lambda_s$ is maximized at total avoidance of the sink.
 
-![Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship. ](figures/deterministic.png)
+![Figure 2. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochasticbw.png)
 
-Figure 1. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with deterministic survivorship.
-
-![Figure 2. Growth rate  of the two-patch metapopulation versus dispersal to the high-predation patch with stochastic survivorship. ](figures/stochastic.png)
-
-Figure 2. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) versus dispersal to the high-predation patch with stochastic survivorship. The maximum growth rate for each predation level (Marked with circle) occurs at lower dispersal toward the trap patch with increasing predation. The maximum increase in $\log \lambda_s$ ($δlogλ_sMAX$, marked with vertical dotted line) decreases with increasing predation. 
+Figure 2. Growth rate  of the two-patch metapopulation ($\log \lambda_s$ ) versus dispersal to the high-predation patch with stochastic survivorship. The maximum growth rate for each predation level (Marked with circle) occurs at lower dispersal toward the trap patch with increasing predation. The maximum increase in $\log \lambda_s$ ($δlogλ_sMAX$, marked with grey line) decreases with increasing predation. 
 
 We derived an expression for stochastic growth of the simplified model:
 
@@ -170,7 +170,7 @@ The value of $d$ which solves this equation, $d_{opt}$, is the rate of dispersal
 
 As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases. This follows equation (1), which is strictly decreasing in $\rho_{J_1 J_2}$.
 
-![Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellation.svg)
+![Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.](figures/autocorrellationbw.svg)
 
 Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the high predation patch. This is the average of 100000 years.
 
@@ -181,7 +181,7 @@ Some dispersal causes there to be some value in dispersal toward a ecological tr
 
 This pattern changes with different life history strategies. If adults experience predation instead of juveniles, but juveniles are still the dispersers, increases in adult survival still leads to lowering the fitness value of dispersal toward the trap(Fig. 4). Allowing adults to disperse instead of juveniles causes increases in adult survival to raise the fitness value of dispersing toward the trap (Fig. 4). However, for a given set of survival and fecundity parameters, the $\delta \ log \lambda_{s \,MAX}$ is lower when adults disperse than when juveniles disperse. When adults disperse every year and experience predation, there is no longer any value in dispersal toward a trap ($\delta \ log \lambda_{s \,MAX}$ = 0, Fig. 4).
 
-![Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival.](figures/lamdiff_total.png)
+![Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival.](figures/lamdiff_totalbw.png)
 
 Figure 4. The difference between log λs at dispersal=0 and the peak  of the dispersal-growth rate curve shown in fig. 1 when the life history puts greater investment in juveniles at the cost of adult survival.
 
@@ -338,13 +338,7 @@ $$\frac{\delta \log \lambda_s}{\delta \log a_{ij}} =
    
 We repeated the stochastic elasticity calculation for 1,000,000 iterations and plotted the elasticity of each non-zero matrix entry when the predation was 50% and varied dispersal to the high predation patch between 0 and 1. 
 
-To test the effect of small perturbations in the vital rates of the stochastic model, we calculated the elasticity of the stochastic growth rate using numerical simulation (Caswell 2001). Briefly, we adapting the code from Caswell (2001), to generate a series of metapopulation projection matrices based on the randomly fluctuating environmental states described above. We used this to generate a series of population structure vectors (v) and growth rates (R) projected forward in time and a series of reproductive value vectors (w) projected backwards in time. The elasticity matrix is:
 
-$$\frac{\delta \log \lambda_s}{\delta \log a_{ij}} = 
-   \lim_{tf \rightarrow \infty} \frac{1}{tf} \sum_{t=0}^{T-1}
-   \frac{(v(t+1)w^T(t) \circ A_t}{R_t v^T (t+1) w (t+1)}$$
-   
-We repeated the stochastic elasticity calculation for 100000 years and plotted the elasticity of each non-zero matrix entry when the predation was 50% and varied dispersal to the high predation patch between 0 and 1. 
 
 
 ### Elasticity
