@@ -17,32 +17,38 @@ From deciding where to build a nest, deciding when to germinate, and deciding wh
 
 Many human modifications can cause ecological traps. Some well-known examples are resort lights on beaches which cause baby sea turtles to crawl the wrong direction upon hatching (Tuxbury and Slamon 2005), glass windows which elicit oviposition responses in mayflies, and floating garbage that resembles food to seabirds (Robertson et al 2013). Introduced species may cause inappropriate mating responses or habitat settlement cues (Schlaepfer et al. 2005). Introduced predators may be particularly problematic because native prey have not evolved to recognize them, and therefore fail to respond with anti-predator behaviors (Sih et al. 2010). If patches with predators are consistently superior in other habitat characteristics or resource availability (nesting sites, vegetation, water chemistry, prey food resources etc) then ecological traps in the landscape could cause the entire population to decline despite the presence of predator-free patches.
 
-On the other hand, sink habitats may have value to organisms if they help maintain a population through risk-spreading or bet-hedging in a stochastically-varying environment (Philippi and Seger 1989) **[Am I using this ref right?]**. Frequent changes in patch quality may mean that a patch that is a sink on average may actually have higher fitness during a particular year, facilitating metapopulation persistence (Holt 1997, Jansen and Yoshimura 1998). Some individuals selecting the patch that is lower quality on average may be better for metapopulation survival than all individuals selecting the high quality patch, since temporary fluctuations in patch quality will affect a lower proportion of individuals.
+On the other hand, sink habitats may have value to organisms if they help maintain a population through risk-spreading or bet-hedging in a stochastically-varying environment (Philippi and Seger 1989) **[Am I using this ref right?]**. Frequent changes in patch quality may mean that a patch that is a sink on average may actually have convey higher fitness value at some times, facilitating metapopulation persistence (Holt 1997, Jansen and Yoshimura 1998). Some individuals selecting such patches may be better for metapopulation growth and persistence than all individuals selecting the higher quality habitats, since temporary fluctuations in patch quality will affect a lower proportion of individuals.
 
 Traditional models of source-sink dynamics assume passive dispersal, while most models that include habitat choice assume perfect information about habitat quality with organisms displaying ideal free distributions (reviewed by Piper 2011). Delibes et al. (2001b) used a deterministic metapopulation model to examine how the equilibrium of a metapopulation changed as a function of the proporation of sink habitats, and showed that this relationship was smooth where organisms had perfect information, but had a sharp extinction threshold when the sink habitats were traps.  However, environmental fluctuation might change these
-dynamics, as sometimes even traps may have value.
+dynamics, as sometimes even traps may have value. A "trap" at the individual scale mau not be a "trap" at the population scale in these cases.
 
-The ecological trap models that have been developed have rarely explore how traps (which affect individual choice) interact with population structure and overall population viability. Those that have been developed lack stochastic dynamics (Delibes et al. 2001b), or only examine a single life history strategy (Donovan and Thompson 2001). Differences in breeding site fidelity, natal site fidelity, parental care, and dispersal stage may change how a particular organism reacts to an ecological trap, and how the trap influences metapopulation dynamics. For example, organisms without parental care must choose habitat they believe to be suitable based purely on habitat cues rather than on prior breeding success. The effect of this choice may depend on life history; some species may choose new breeding sites, while others remain or return year after year whether or not their young survive to adulthood (Garwood 2009).
+Since traps can affect fitness at various life stages, life history is likely to play an important role as to whether mal-adaptive habitat choice at individual-scale translates to population-level declines. Differences in breeding site fidelity, natal site fidelity, parental care, and dispersal stage may change how a particular organism reacts to an ecological trap, and how the trap influences metapopulation dynamics. For example, organisms without parental care must choose habitat they believe to be suitable based purely on habitat cues rather than on prior breeding success. The effect of this choice may depend on life history; some species may choose new breeding sites, while others remain or return year after year whether or not their young survive to adulthood (Garwood 2009).
 
-We have constructed a theoretical model to illustrate the dynamics of a two-patch metapopulation to see how mal-adaptive habitat choice affects population dynamics. The following model was inspired by the Cascades frog (Rana cascadae), but potentially useful to aid thinking about a number of different organisms with ontogenetic differences in dispersal across a landscape of patchily distributed habitats. The basic model is best suited to describe other r-selected species with dispersing juvenile stages and sedentary adults, such as plants or marine invertebrates, however we then expand the model to explore how the model changes when a different life stage disperses, and how the model changes when predation affects the dispersing versus non-dispersing life stage.
-
-The Cascades frog lives high mountain lakes that were historically fishless. This provides an ideal example of a metapopulation with each breeding lake serving as a patch connected by juvenile dispersal (Garwood 2009). Humans have introduced fish into those lakes, where they prey on frog larvae (Pope 2008). Previous studies have shown a negative relationship between fish presence and frog abundance (Welsh et al. 2006), but it is unclear whether this is due to predation alone or impacts of fish on frog dispersal. Trout may cause an evolutionary trap because frogs choosing oviposition sites may not be able to recognize the presence of these novel predators since they do not share recent evolutionary history. Fish are capable of causing trophic cascades (Carpenter et al. 1985), which increase resources available to tadpoles, and decrease abundance of invertebrate predators, which tadpoles have evolved to avoid (Hokit and Blaustein 1995). Therefore, it is highly likely that adult frogs will not recognize the presence of fish in a particular lake and oviposit there due to the high resources and apparent lack of predators.
+We have constructed a theoretical model to illustrate the dynamics of a two-patch metapopulation to see how mal-adaptive habitat choice affects population dynamics. The model is based on the ecology of the Cascades frog (*Rana cascadae*), but potentially useful to aid thinking about a number of different organisms with ontogenetic differences in dispersal across a landscape of patchily distributed habitats. The basic model is best suited to describe other r-selected species with dispersing juvenile stages and sedentary adults, such as plants or marine invertebrates, however we then expand the model to explore how the model changes when a different life stage disperses, and how the model changes when predation affects the dispersing versus non-dispersing life stage.
 
 We ask, under what conditions can these ecological traps help maintain populations? Bet hedging theory would suggest that stochastic dynamics might make it beneficial for some individuals to disperse to lower-quality habitat patches if they change environmental state independently from the higher-quality patch (Philippi and Seger 1989). Secondly, we ask how differences in life history patterns affect the ability of organisms to capitalize on the bet-hedging strategy.
 
 In the following, we introduce a two-patch, two-stage, stochastic metapopulation model ("Model"). We analyze the effect of dispersal towards sinks on growth rate across different levels of predation and environmental regimes ("Dispersal and growth"). We examine the value of bet-hedging strategies under different life-history strategies, including different investment in survival of life stages, and the timing of dispersal, and the period of vulnerability to predation ("Life history scenarios").
 
-Model
------
+System Background and Model
+---------------------------
 
-To simplify the Cascades frog system, we have constructed a two-patch metapopulation model with two life stages (juveniles, and adults) (Caswell 2001). One patch has predators, which effect juvenile recruitment via a predation percentage (p), describing the percent of juveniles consumed at each time step. This is multiplied by the intrinsic juvenile recruitment rate (J) to determine number of juveniles recruiting into the population. We modeled prey abundance only, and assumed predation pressure was constant because although fish have a large effect on frog populations, frog larvae make up a very small percentage of fish diet so are unlikely to effect fish abundance (Joseph et al. 2011). Predation does not effect adult survival. Adults reproduce with a patch-specific fecundity fi. Number of adults in a patch is determined by juvenile recruitment and adult survival (S). Thus, the matrix of demography for patch i is:
+The Cascades frog lives in the high mountain lakes of the Trinity Alps in California and Oregon. They hatch and develop from tadpols to frogs in a single season, then disperse to other lakes, where adults remain and reproduce for the rest of their lives (Garwood 2009).
+
+These lakes were historically fishless, but humans have introduced fish into those lakes, where they prey on frog larvae (Pope 2008). Previous studies have shown a negative relationship between fish presence and frog abundance (Welsh et al. 2006), but it is unclear whether this is due to predation alone or impacts of fish on frog dispersal. Trout may cause an evolutionary trap because frogs choosing oviposition sites may not be able to recognize the presence of these novel predators since they do not share recent evolutionary history. Fish are capable of causing trophic cascades (Carpenter et al. 1985), which increase resources available to tadpoles, and decrease abundance of invertebrate predators, which tadpoles have evolved to avoid (Hokit and Blaustein 1995). Therefore, it is highly likely that adult frogs will not recognize the presence of fish in a particular lake and oviposit there due to the high resources and apparent lack of predators.
+
+We represent this system with a two-patch metapopulation model with two life stages (juveniles and adults).  Populations in each patch are represented by the vector $n = [n_{J1}, n_{S1}, n_{J2}, n_{S2}]$.   Adults reproduce at rate $f$ and and juvenuiles and adults survive at patch-dependent rates $J_i$ and $S_i$. Patch-specific survival rates are random variables, representing environmental
+variation in habitat quality. ***[SOMETHING ABOUT HOW THIS REPRESENTS THE ACTUAL
+SYSTEM?]***
+
+One patch has introduced predators, which effect juvenile recruitment by reducing it by a factor of $(1-p)$, We consider predation pressure as an exogenous variable; though fish have a large effect on frog populations, frog larvae make up a very small percentage of fish diet so are unlikely to effect fish abundance (Joseph et al. 2011). Predation does not effect adult survival. For a single patch $i$, the population projection matrix is:
 
 $$B_i = \begin{bmatrix} 
           0 & f_1 \\
           J_i (1-p) & S_i 
         \end{bmatrix}$$
 
-All juveniles disperse, and a proportion of juveniles (d) settle in the high-predation patch. Juveniles are the only dispersing stage, and become adults once they settle in their destination patch. Thus, the dispersal matrix for the juvenile stage in a two-patch system is:
+All juveniles disperse, and a proportion of juveniles $d$ settle in patch with predation. Juveniles are the only dispersing stage, and become adults once they settle in their destination patch. The dispersal matrix for the juvenile stage in a two-patch system is:
 
 $$M_J = \begin{bmatrix}
           d & d-1 \\
@@ -58,21 +64,9 @@ $$A = \begin{bmatrix}
         J_1 (1-p)(1-d) & 0 & J_2 (1-d) & S_2 
       \end{bmatrix}$$
 
-The population at time $t+1$ is determined by where $N$ is matrix of population sizes $(n)$ of each stage (Larvae $L$, Juveniles $J$, and Adults $s$) organized by patches.
+and the system's evolution is represented as $\boldsymbol n_{t+1} = \boldsymbol A \boldsymbol n_t$.
 
-$$N_t = \begin{bmatrix}
-          n_J1 \\
-          n_S1 \\
-          n_J2 \\
-          n_S2
-        \end{bmatrix}$$
-
-Dispersal and Growth
---------------------
-
-### Deterministic Growth
-
-In order to see how changes in habitat selection affected population growth, we assumed density independent, deterministic growth and varied the dispersal to the patches with and without predation. Fecundity and survivorship at each life stage were chosen based on previous studies of *Rana cascadae* life history (average year, table 1) (Briggs and Storm 1970, Pope 2008). We assumed the only differences between the two patches are predation pressure and dispersal. To test the sensitivity of the metapopulation growth rate (log $lambda$) to changes in predation and dispersal, we varied predation from 0% to 90% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 0.9
+For our simulations, we drew stochastic life-history parameters from previous studies of *Rana cascadae* life history (Table 1) (Briggs and Storm 1970, Pope 2008). 
 
   Environmental state   Juvenile recruitment   adult survival   fecundity
   --------------------- ---------------------- ---------------- -----------
@@ -81,7 +75,16 @@ In order to see how changes in habitat selection affected population growth, we 
   bad                   0.002                  0.2              150
   failure               0.0001                 0.5              150
 
-Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased larval, juvenile, and adult survival. The “failure” state is one in which a bad water year causes very few juveniles to recruit into the population.
+Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased both juvenile, and adult survival. The “failure” state is one in which a bad water year causes very few juveniles to recruit into the population.
+
+All simulations were performed in R (R Core Team 2013), with some analyses using the popbio libary (Stubben and Milligan, 2007). All code and simulated data are available at <https://github.com/rosehartman/frog-trap>.
+
+Dispersal and Growth
+--------------------
+
+### Deterministic Growth
+
+In order to see how changes in habitat selection affected population growth, we assumed density independent, deterministic growth and varied the dispersal to the patches with and without predation. We assumed the only differences between the two patches are predation pressure and dispersal. To test the sensitivity of the metapopulation growth rate ($\log lambda$) to changes in predation and dispersal, we varied predation from 0% to 90% and varied proportion of juveniles dispersing to the high-predation patch from 0 to 0.9.
 
 We found that increasing the dispersal to the high-predation patch tended to decrease the overall growth rate ($\lambda$) when predation was increased (Fig. 1). In a single-patch system, population growth rate of the high-predation patch would be positive at 0%, 20% and 60% predation, but negative (a true sink habitat) at 80% and 100% predation. The elasticity analysis of the metapopulation projection matrix (Table 2), shows that growth rate is most elastic to changes in the non-predator patch. Within each patch, fecundity is the most important parameter, followed by adult survival.
 
@@ -281,6 +284,8 @@ Pope, K. L. 2008. Assessing changes in amphibian population dynamics following e
 
 Pope, K. L., J. Piovia-Scott, and S. P. Lawler. 2009. Changes in aquatic insect emergence in response to whole-lake experimental manipulations of introduced trout. Freshwater Biology 54:982-993.
 
+R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL http://www.R-project.org/
+
 Refsnider, J. M. and F. J. Janzen. 2010. Putting Eggs in One Basket: Ecological and Evolutionary Hypotheses for Variation in Oviposition-Site Choice. Annual Review of Ecology, Evolution, and Systematics 41:39-57.
 
 Remes, V. 2000. How can maladaptive habitat choice generate source-sink population dynamics? Oikos 91:579-583.
@@ -296,6 +301,8 @@ Schreiber, S. J. 2010. Interactive effects of temporal correlations, spatial het
 Sih, A., D. I. Bolnick, B. Luttbeg, J. L. Orrock, S. D. Peacor, Lauren M. Pintor, E. Preisser, J. S. Rehage, and J. R. Vonesh. 2010. Predator–prey naïveté, antipredator behavior, and the ecology of predator invasions. Oikos 119:610-621.
 
 Sinclair, A. R. E. and R. P. Pech. 1996. Density Dependence, Stochasticity, Compensation and Predator Regulation. Oikos 75:164-173.
+
+Stubben, C.J. and Milligan, B.G.  2007.  Estimating and Analyzing Demographic Models Using the popbio Package in R.  Journal of Statistical Software 22:11.
 
 Switzer, P. V. 1993. Site fideligy in predictable and unpredicatble environments. Evolutionary Ecology 7:533-555.
 
