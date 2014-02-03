@@ -300,7 +300,7 @@ Switzer, P. V. 1993. Site fideligy in predictable and unpredicatble environments
 
 Tuxbury, S. M. and M. Salmon (2005). "Competitive interactions between artificial lighting and natural cues during seafinding by hatchling marine turtles." Biological Conservation 121(2): 311-316.
 
-Welsh, H. H., K. L. Pope, and D. Boiano. 2006. Sub-alpine amphibian distributions related to species palatability to non-native salmonids in Klamath mountains of northern California. Diversity and Distributions 12:298-309.
+Welsh, H. H., K. L. Pope, and D. Boiano. 2006. Sub-alpine amphibian distributions related to species palatability to non-native salmonids in Klamath mountains of northern California. Diversity and Distributions 12:298-309
 
 APPENDIX A: Density Dependence
 
