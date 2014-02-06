@@ -65,13 +65,12 @@ and the system's evolution is represented as $\boldsymbol n_{t+1} = \boldsymbol 
 
 For our simulations, we drew stochastic life-history parameters from previous studies of *Rana cascadae* life history (Table 1) (Briggs and Storm 1970, Pope 2008). 
 
-  Environmental state   Juvenile recruitment   adult survival   fecundity
-  --------------------- ---------------------- ---------------- -----------
-  good                  0.02                   0.7              150
-  average               0.009                  0.6              150
-  bad                   0.002                  0.2              150
-  failure               0.0001                 0.5              150
-
+  Environmental state   | Juvenile recruitment   | adult survival   | fecundity
+  --------------------- | ---------------------- | ---------------- | -----------
+  good                  | 0.02                   | 0.7              | 150
+  average               | 0.009                  | 0.6              | 150
+  bad                   | 0.002                  | 0.2              | 150
+  failure               | 0.0001                 | 0.5              | 150
 Table 1: Survival rates for each life stage in a given environmental state. Survivals of the life stages were assumed to be correlated in most instances, so a “good” year increased both juvenile, and adult survival. The “failure” state is one in which a bad water year causes very few juveniles to recruit into the population.
 
 All simulations were performed in R (R Core Team 2013), with some analyses using the popbio libary (Stubben and Milligan, 2007). All code and simulated data are available at <https://github.com/rosehartman/frog-trap>.
@@ -89,11 +88,11 @@ Under average year conditions, with no inter-annual variation in survival $(\sig
 
 Figure 1. Growth rate of the two-patch metapopulation versus dispersal to the predator patch with deterministic survivorship.
 
-  Patch          Fecundity   Migrants from predator patch   Migrants from patch non-predator patch   Adult survival
-  -------------- ----------- ------------------------------ ---------------------------------------- ----------------
-  Predator       0.1190      0.0397                         0.0794                                   0.0952
-  Non-predator   0.2381      0.0794                         0.1587                                   0.1905
-
+  Patch          | Fecundity   | Migrants from predator patch   | Migrants from patch non-predator patch   | Adult survival
+  -------------- | ----------- | ------------------------------ | ---------------------------------------- | ----------------
+  Predator       | 0.1190      | 0.0397                         | 0.0794                                   | 0.0952
+  Non-predator   | 0.2381      | 0.0794                         | 0.1587                                   | 0.1905
+  
 Table 2: Elasticities of $\lambda$ to changes in the non-zero matrix elements of the metapopulation projection matrix when they have equal dispersal and predation is 50% in the predator patch.
 
 ### Stochastic Growth
@@ -112,29 +111,33 @@ To accompany our stochastic simulations, we analyzed simplified version of the m
 
 $$\log \lambda_s = \log \hat \lambda_d - \frac{1}{2} \left(\frac{\tau}{\hat {\lambda_d}}\right)^2$$ $$\tau^2 = \sum_i \sum_j \rho_{i,j} \sigma_i \sigma_j s_i s_j$$
 
-where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, and $\rho_{ij}$ their correlations.
+where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, $s$ are the sensitivities of $\hat \lambda_d$ to each parameter, and $\rho_{ij}$ the cross-parameter correlations.
 
 For simplicity, in our analytic examinations we assume that $S_1 = S_2 = S$, and that $\sigma_s = 0$, $J_1 = J_2 = J$, and $\sigma_{J_1} = \sigma_{J_2} = \sigma_J$. These changes do not have qualitative effects on our results. (See Appendix)
 
 We derived an expression for stochastic growth of the simplified model:
 
-$$\log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)$$
+$$\begin{equation}
+  \log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)
+  \end{equation}$$
 
 where
 
-$$v = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$.
+$$v = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$
 
-To determine the conditions for $\log \lambda_{max}$, we take the derivative and set it to zero:
+To determine the level dispersal towards the predation patch, $d^*$ that maximizes $\log \lambda_{max}$, we take the derivative of $\log \lambda$ with respect to $d$ and set it to zero:
 
-$$\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{4df^2}{(S+v)^2 v^2} + \frac{8d^2f^3p}{(S+v)^2 v^4} + \frac{8 d^2f^3p}{(S+v)^3 v^3}\right) = 0$$
+$$\begin{equation}
+\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{8Jf^3p(1-dp)^2}{(S+v)^2 v^4} + \frac{8f^3p(1-dp)^2}{(S+v)^3 v^3} - \frac{4df^2p(1-dp)}{(S+v)^2 v^2} +\right) = 0
+\end{equation}$$
 
-This expression is untractable for life history parameters other than $\sigma$ and $\rho_{J_1 J_2}$.  However, we can use this to 
+This expression is untractable for life history parameters other than $\sigma$ and $\rho$.  However, we can use these expression to gain intuition from our simulation results.
 
 ### Spatial autocorrelation
 
-The environmental state may vary independently in a real two-patch system, but if the patches are closer together they may be more likely to encounter the same environmental state in a given year, which changes the value of poor information. To see how this effected population growth rate, we varied the degree of spatial autocorrelation between patches from 0 to 1 and calculated the stochastic growth rate over one million years with a predation rate of 50% and varied proportion of juveniles dispersing to the predator patch from 0 to 1.
+If environmental variation is similar between patches, as in the case of nearby patches experiencing common climatic patterns, more likely to encounter the same environmental state in a given year, which changes the value of poor information. To see how this affected population growth rate, we varied the degree of spatial correlation between patches ($\rho_{J_1 J_2}, \rho_{S_1 S_2}$) from 0 to 1 and calculated the stochastic growth rate over one million years with a predation rate of 50% and varied proportion of juveniles dispersing to the predator patch from 0 to 1.
 
-As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases (Fig. 3).
+As the degree of spatial autocorrelation increases, the height of the dispersal-growth rate curve decreases, and the dispersal rate at which the curve peaks decreases (Fig. 3). This follows Equation 1 above, which shows $\log \lambda$ decreases with increasing $\rho$.  
 
 ![Figure 3. Dispersal-growth rate curve of metapopulation with varying degrees of spatial autocorrelation in year type. The other patch has no predation and an attractiveness of 100). Predation was 50% in the predator patch. This is the average of 100000 years.](figures/autocorrellationbw.png)
 
@@ -149,7 +152,7 @@ The difference between the growth rate when juveniles always disperse to the pre
 
 $δlogλ_sMAX$ may change depending on the survival of the life stages that use that information. We held predation constant at 50%. We defined a trade-off between juvenile and adult survival by changing the juvenile recruitment rate by 40% to 1000% while simultaneously changing the adult survival by the inverse of the change in juvenile survival.
 
-Some dispersal causes there to be some value in poor information on the population level (the peak of the growth rate curve is greater than the growth rate at zero dispersal, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the predator-free patch by itself ($δlogλ_sMAX$) depends on predation and survival of each life stage (Fig 4). Greater investment in adult survival decreases the value of having a proportion of juveniles disperse to the predator patch. Greater investment in juvenile recruitment increased the value of having a proportion of juveniles disperse to the high=predation patch.
+Some dispersal causes there to be some value in poor information on the population level (the peak of the growth rate curve is greater than the growth rate at zero dispersal, see Fig 2). However, the difference between the peak of the metapopulation growth rate and the growth rate of the predator-free patch by itself ($δlogλ_sMAX$) depends on predation and survival of each life stage (Fig 4). Greater investment in adult survival decreases the value of having a proportion of juveniles disperse to the predator patch. Greater investment in juvenile recruitment increased the value of having a proportion of juveniles disperse to the high-predation patch.
 
 ### Timing of dispersal and predation.
 
