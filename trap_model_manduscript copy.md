@@ -5,7 +5,7 @@ Rosemary Hartman
 
 and Noam Ross
 
-(To see a version with the mathematical equations rendered, go to <https://rawgithub.com/rosehartman/frog-trap/master/trap_model_manduscript copy.html>)
+(To see a version with the mathematical equations rendered, go to [the raw version here](https://rawgithub.com/rosehartman/frog-trap/master/trap_model_manduscript copy.html))
 
 Abstract
 --------
