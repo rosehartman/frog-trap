@@ -7,7 +7,7 @@ and Noam Ross
 
 (To see a version with the mathematical equations rendered, go to [the raw version here](https://rawgithub.com/rosehartman/frog-trap/master/trap_model_manduscript copy.html))
 
-If you have feedback, please [sumbit an issue!](https://github.com/rosehartman/frog-trap/issues)
+If you have feedback, please [submit an issue!](https://github.com/rosehartman/frog-trap/issues)
 
 Abstract
 --------
