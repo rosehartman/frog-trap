@@ -122,9 +122,7 @@ For simplicity, in our analytic examinations we assume that $S_1 = S_2 = S$, and
 
 We derived an expression for stochastic growth of the simplified model:
 
-$$\begin{equation}
-  \log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)
-  \end{equation}$$
+$$\log \lambda_s = \log \left(\frac{S + v}{2}\right) - 2 \left(\frac{df}{(S + v)v}\right)^2 \left((2+\rho_{J_1 J_2})\sigma_J^2\right)$$
 
 where
 
@@ -132,9 +130,7 @@ $$v = \sqrt{S^2 + 4f ((J-p) d +  J (1-d))}$$
 
 To determine the level dispersal towards the predation patch, $d^*$ that maximizes $\log \lambda_{max}$, we take the derivative of $\log \lambda$ with respect to $d$ and set it to zero:
 
-$$\begin{equation}
-\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{8Jf^3p(1-dp)^2}{(S+v)^2 v^4} + \frac{8f^3p(1-dp)^2}{(S+v)^3 v^3} - \frac{4df^2p(1-dp)}{(S+v)^2 v^2} +\right) = 0
-\end{equation}$$
+$$\frac{\partial \log \lambda_s}{\partial d} = -\frac{2fp}{(S+v)v} - (2+\rho)\sigma^2 \left(\frac{8Jf^3p(1-dp)^2}{(S+v)^2 v^4} + \frac{8f^3p(1-dp)^2}{(S+v)^3 v^3} - \frac{4df^2p(1-dp)}{(S+v)^2 v^2} +\right) = 0$$
 
 This expression is untractable for life history parameters other than $\sigma$ and $\rho$.  However, we can use these expression to gain intuition from our simulation results.
 
