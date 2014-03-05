@@ -1,0 +1,12 @@
+1. connection between idea of ecological trap and bet hedging is an interesting one; don't know that it's been discussed in the general ecology lit much if it all. although any model that has ecological traps and stochasticity would relate to this. I don't know much about literature on ecological traps
+2. my understanding of ecological trap is that it's a case where a previously reliable cue becomes unreliable
+3. the paper doesn't really model this situation directly so the notion of a benefit (ie increased population persistence under stochasticity) is a little murky (ie increased relative to what?)
+4. instead, the paper sets up a comparison between the case where there is dispersal to both the trap (predated patch) and non-trap and that where all juveniles disperse to the non-trap. This is subtly different than my description in #2. Isn't the appropriate "base case" one where there is no predation and there are still two patches?
+5. if point #1 above is the main bit of novelty and focus, this needs to be emphasized more and the model setup and base case should more carefully reflect this.
+6. on the other hand the life history bit is pretty interesting too (e.g. if point #1 has already been explored to some degree in the literature). It might add a different wrinkle (although I'd still recommend thinking about the base case issue mentioned above). There is some sort of issue about whether what you're doing with lifehistory is really an analysis of some sort of LH tradeoff between juvenile and adult 'investment' or rather an exploration of the sensitivity of model to dispersal and survival.
+
+To add to #6, I added a note in the pdf too, but I'll repeat it here: 
+You could just call what you're doing with survival sensitivity analysis. 
+
+But, one way to set up this more clearly as a tradeoff would be to write down a model where one parameter varies the 'investment' in juve vs adult survival and do sensitivity to that param. (This might actually be exactly equivalent to what you've done and I'm too dense to realize ... in that case I think it's a matter of framing it more clearly in a mathematical way.)
+
