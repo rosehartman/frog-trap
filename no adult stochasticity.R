@@ -17,15 +17,10 @@ library(doParallel)
 registerDoParallel(cores=2)
 
 #load the functions I have defined to run this puppy
-<<<<<<< HEAD
-source('~/Desktop/frog-trap/R/foo.R')
-source('~/Desktop/frog-trap/R/lambda two stage.R')
-source('~/Desktop/frog-trap/R/Ex1.R')
-=======
+
 source('R/foo.R')
 source('R/lambda two stage.R')
 source('R/Ex1.R')
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 # define all the variables
 npatch = 2 # number of patches
@@ -66,18 +61,10 @@ names(allresults) = c(pred,"p")
 write.csv(allresults, file = "twostage_million1.csv")
 
 # get the dataframe into a format ggplot will like
-<<<<<<< HEAD
 allresults2a = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
 allresults2a$rate = c(NA, 252)
 allresults2a$rate = rep(6:1, each=21)
 allresults2a$rate = ordered(allresults2a$rate, levels=c(1:6) ,
-=======
-library(reshape2)
-allresults2 = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
-allresults2$rate = c(NA, 252)
-allresults2$rate = rep(6:1, each=21)
-allresults2$rate = ordered(allresults2$rate, levels=c(1:6) ,
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
                            labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
 
 # calculate maximum growth rate
@@ -86,7 +73,7 @@ max1 = apply(allresults[1:6], 2,  max)
 min1 = as.numeric(allresults[1,1:6])
 mxp1 = c(1:6)
 for (i in 1:6) mxp1[i] = allresults[which(allresults[,(i)]==max1[i]),7]
-<<<<<<< HEAD
+
 summary1a = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
 write.csv(summary1a, file="summary_million1.csv")
 
@@ -115,6 +102,7 @@ dev.off()
 source('R/foo.R')
 
 ac = seq(0,1, by=.1) # vector of various degrees of autocorrelation
+pred = 0.5 # set predation to 0.5 for all future simulations
 
 # Run the model for all dispersal rates whith different levels
 # of autocorrellation when predation is at 50%
@@ -149,14 +137,17 @@ dev.off()
 
 # Now the results going into figure 3 with the different survival rates
 
-# we got some extinctions with a predation of 50%, so we'l use that for this analysis
-pred= .5
 # matrix of different survival scenarios
-survJ = c(.8, .9, 1, 1.1, 1.2, 1.5, 1.8, 2, 2.2, 3, 5, 10)
-surv = matrix(c( survJ, 1/survJ), ncol=2)
+# The (geometric) mean juvenile recruitment is 0.002449
+# so the average life span (J/(1-s)) is 0.00489
+# We will hold life span constant and trade off between juv and adult survival
+survJ = c(.8, .9, 1, 1.1, 1.2, 1.5, 1.8, 2, 2.2, 3, 5, 10) #(rate to increase or decrease J, not J itself!)
+
 # calculate stochastic lambdas for all changes in survival rate
 survmat = foreach (i=1:12, combine=cbind) %dopar% {
-  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+  J = states[,1]*survJ[i] # increase or decrease J by a set amount
+  a = rep((1-0.00489*geometricmean(J)), length(J)) # change adult survival so life span remains constant
+  states1 <- cbind(J, a)
   r =  ldply(p, foo21,states1=states1)
   return(r)
 }
@@ -180,11 +171,8 @@ write.csv(summary, file = "summary survivals million1.csv")
 
 
 # predation only effects the adults instead of teh juveniles.
-<<<<<<< HEAD
-source('~/Desktop/frog-trap/R/opposite day functions.R')
-=======
+
 source('R/opposite day functions.R')
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 # Calculate growth-dispersal curves for various changes in adult/juv survival tradeoff
 survAds = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
@@ -209,11 +197,8 @@ write.csv(summaryads, file = "summary survivalsads million1.csv")
 
 # Now lets have predation effect the juveniles but have the adults be
 # the migratory life stage.
-<<<<<<< HEAD
-source('~/Desktop/frog-trap/R/opposite day2 functions.R')
-=======
+
 source('R/opposite day2 functions.R')
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 # growth curves with different changes in survival
 survopp = foreach (i=1:12, combine=cbind) %dopar% {
@@ -240,11 +225,8 @@ write.csv(summaryopp, file = "summary survivalsopp million1.csv")
 
 # Now lets have predation effect the adults AND have the adults be
 # the migratory life stage.
-<<<<<<< HEAD
-source('~/Desktop/frog-trap/R/opposite day3 functions.R')
-=======
+
 source('R/opposite day3 functions.R')
->>>>>>> 1ed77a927d469b4f579135c5de82716a0844c7dd
 
 survO = foreach (i=1:12, combine=cbind) %dopar% {
   states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
