@@ -7,6 +7,7 @@
 
 # load required packages:
 library(popbio)
+library(compositions)
 library(reshape2)
 library(ggplot2)
 library(plyr)
@@ -46,6 +47,31 @@ P = matrix(c(.25,.25,.25,.25), 4, 4)
 p =  seq(0,1,by=0.05)
 # predation values
 pred = seq (0,1, by=.2)
+
+# apply deterministic growth function over all predation levels
+
+resultsdet = ldply(pred, function(pred){
+  # deterministic growth rate
+  r2.0 = sapply(p, Patchlam, s1=c(.5,.5), J=c(.009,.009), fx=fx,  pred=pred, simplify=T)
+r2.0 = log(r2.0) # take the log to make it comparable to stochastic rates
+return(r2.0) 
+})
+
+det = data.frame(t(rbind(resultsdet, p)))
+names(det) = c(pred,"p")
+det2 =  melt(det, id.vars="p", variable.name= "predation", value.name="lambda")
+det2$rate = c(NA, 252)
+det2$rate = rep(6:1, each=21)
+det2$rate = ordered(det2$rate, levels=c(1:6) ,
+                            labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
+
+
+# Just deterministic
+e3 = ggplot(data=det2, 
+            aes(x=p, y=lambda))
+e3 = e3+geom_line(aes(linetype=rate)) + labs(y="population growth rate (logλ)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+  scale_y_continuous(limits=c(-.5, .5)) 
+e3 
 
 # apply stochastic growth function over all predation levels
 resultsStoch = ldply(pred, function(pred2){
@@ -141,12 +167,12 @@ dev.off()
 # The (geometric) mean juvenile recruitment is 0.002449
 # so the average life span (J/(1-s)) is 0.00489
 # We will hold life span constant and trade off between juv and adult survival
-survJ = c(.8, .9, 1, 1.1, 1.2, 1.5, 1.8, 2, 2.2, 3, 5, 10) #(rate to increase or decrease J, not J itself!)
+survJ = seq(.1,1.9, by=.1) #(rate to increase or decrease J, not J itself!)
 
 # calculate stochastic lambdas for all changes in survival rate
-survmat = foreach (i=1:12, combine=cbind) %dopar% {
+survmat = foreach (i=1:19, combine=cbind) %dopar% {
   J = states[,1]*survJ[i] # increase or decrease J by a set amount
-  a = rep((1-0.00489*geometricmean(J)), length(J)) # change adult survival so life span remains constant
+  a = rep((-geometricmean(J)/0.00489 +1), length(J)) # change adult survival so life span remains constant
   states1 <- cbind(J, a)
   r =  ldply(p, foo21,states1=states1)
   return(r)
@@ -155,15 +181,15 @@ survmat = foreach (i=1:12, combine=cbind) %dopar% {
 
 # organize the data and save it as an csv
 survmat2 = as.data.frame(survmat)
-names(survmat2) = surv[,1]
+names(survmat2) = survJ
 survmat2$p = p
 write.csv(survmat2, file="survmat million1.csv")
 
 # find the proportion of juveniles moving that maximizes the growth rate with changes in larval survival
-maxlam = apply(survmat2[,1:12], 2, max)
-minlam = as.numeric(survmat2[1,1:12])
-maxs = survmat2[1:12,]
-for (i in 1:12) maxs[i,] = survmat2[which(survmat2[,i]==maxlam[i]),]
+maxlam = apply(survmat2[,1:19], 2, max)
+minlam = as.numeric(survmat2[1,1:19])
+maxs = survmat2[1:19,]
+for (i in 1:19) maxs[i,] = survmat2[which(survmat2[,i]==maxlam[i]),]
 
 # data frame for summary statistics with changes in survival of each life stage
 summary = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
@@ -174,8 +200,10 @@ write.csv(summary, file = "summary survivals million1.csv")
 
 source('R/opposite day functions.R')
 # Calculate growth-dispersal curves for various changes in adult/juv survival tradeoff
-survAds = foreach (i=1:12, combine=cbind) %dopar% {
-  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+survAds = foreach (i=1:19, combine=cbind) %dopar% {
+  J = states[,1]*survJ[i] # increase or decrease J by a set amount
+  a = rep((-geometricmean(J)/0.00489 +1), length(J))  # change adult survival so life span remains constant
+  states1 <- cbind(J, a)
   r =  ldply(p, fooAds, states1=states1, pred=.5)
   return(r)
 }
@@ -186,10 +214,10 @@ names(survads2) = surv[,1]
 survads2$p = p
 
 # calculate maximum lambdas and value of hedging
-maxlamads = apply(survads2[,1:12], 2, max)
-minlamads = as.numeric(survads2[1,1:12])
-maxsads = (survads2[1:12,])
-for (i in 1:12) maxsads[i,] = survads2[which(survads2[,i]==maxlamads[i]),]
+maxlamads = apply(survads2[,1:19], 2, max)
+minlamads = as.numeric(survads2[1,1:19])
+maxsads = (survads2[1:19,])
+for (i in 1:19) maxsads[i,] = survads2[which(survads2[,i]==maxlamads[i]),]
 
 summaryads = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamads, p = maxs$p, ldiff=(maxlamads-minlamads))
 
@@ -201,8 +229,10 @@ write.csv(summaryads, file = "summary survivalsads million1.csv")
 source('R/opposite day2 functions.R')
 
 # growth curves with different changes in survival
-survopp = foreach (i=1:12, combine=cbind) %dopar% {
-  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+survopp = foreach (i=1:19, combine=cbind) %dopar% {
+  J = states[,1]*survJ[i] # increase or decrease J by a set amount
+  a = rep((-geometricmean(J)/0.00489 +1), length(J))  # change adult survival so life span remains constant
+  states1 <- cbind(J, a) 
   r =  ldply(p, fooopp, states1=states1, pred=.5)
   return(r)
 }
@@ -215,10 +245,10 @@ survopp2.1 = melt(survopp2, id.vars = "p")
 survopp2.1$levels = rep(surv[,1], each=21)
 
 # calculate maxes and mins
-maxlamopp = apply(survopp2[,1:12], 2, max)
-minlamopp = as.numeric(survopp2[1,1:12])
-maxsopp = survopp2[1:12,]
-for (i in 1:12) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
+maxlamopp = apply(survopp2[,1:19], 2, max)
+minlamopp = as.numeric(survopp2[1,1:19])
+maxsopp = survopp2[1:19,]
+for (i in 1:19) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
 
 summaryopp = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
 write.csv(summaryopp, file = "summary survivalsopp million1.csv")
@@ -228,8 +258,10 @@ write.csv(summaryopp, file = "summary survivalsopp million1.csv")
 
 source('R/opposite day3 functions.R')
 
-survO = foreach (i=1:12, combine=cbind) %dopar% {
-  states1 <- cbind(states[,1]*surv[i,1], states[,2]*surv[i,2])
+survO = foreach (i=1:19, combine=cbind) %dopar% {
+  J = states[,1]*survJ[i] # increase or decrease J by a set amount
+  a = rep((-geometricmean(J)/0.00489 +1), length(J))  # change adult survival so life span remains constant
+  states1 <- cbind(J, a) 
   r =  ldply(p, fooopp3, states1=states1, pred=.5)
   return(r)
 }
@@ -238,10 +270,10 @@ survO2 = as.data.frame(survO)
 names(survO2) = surv[,1]
 survO2$p = p
 
-maxlamO = apply(survO2[,1:12], 2, max)
-minlamO = as.numeric(survO2[1,1:12])
-maxsO = survO2[1:12,]
-for (i in 1:12) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
+maxlamO = apply(survO2[,1:19], 2, max)
+minlamO = as.numeric(survO2[1,1:19])
+maxsO = survO2[1:19,]
+for (i in 1:19) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 
 summaryO = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
 write.csv(summaryO, file = "summary survivalsO million1.csv")
