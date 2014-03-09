@@ -7,7 +7,6 @@
 
 # load required packages:
 library(popbio)
-library(compositions)
 library(reshape2)
 library(ggplot2)
 library(plyr)
@@ -22,6 +21,8 @@ registerDoParallel(cores=2)
 source('R/foo.R')
 source('R/lambda two stage.R')
 source('R/Ex1.R')
+
+geometricmean = function(x) { prod(x)^(1/length(x))}
 
 # define all the variables
 npatch = 2 # number of patches
@@ -192,7 +193,7 @@ maxs = survmat2[1:19,]
 for (i in 1:19) maxs[i,] = survmat2[which(survmat2[,i]==maxlam[i]),]
 
 # data frame for summary statistics with changes in survival of each life stage
-summary = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
+summary = data.frame(levels = survJ, maxs=maxlam, p = maxs$p, ldiff=(maxlam-minlam))
 write.csv(summary, file = "summary survivals million1.csv")
 
 
@@ -210,7 +211,7 @@ survAds = foreach (i=1:19, combine=cbind) %dopar% {
 
 # organize it
 survads2 = as.data.frame(survAds)
-names(survads2) = surv[,1]
+names(survads2) = survJ
 survads2$p = p
 
 # calculate maximum lambdas and value of hedging
@@ -219,7 +220,7 @@ minlamads = as.numeric(survads2[1,1:19])
 maxsads = (survads2[1:19,])
 for (i in 1:19) maxsads[i,] = survads2[which(survads2[,i]==maxlamads[i]),]
 
-summaryads = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamads, p = maxs$p, ldiff=(maxlamads-minlamads))
+summaryads = data.frame(levels = survJ, maxs=maxlamads, p = maxs$p, ldiff=(maxlamads-minlamads))
 
 write.csv(summaryads, file = "summary survivalsads million1.csv")
 
@@ -239,10 +240,10 @@ survopp = foreach (i=1:19, combine=cbind) %dopar% {
 
 # Organize everything
 survopp2 = as.data.frame(survopp)
-names(survopp2) = surv[,1]
+names(survopp2) = survJ
 survopp2$p = p
 survopp2.1 = melt(survopp2, id.vars = "p")
-survopp2.1$levels = rep(surv[,1], each=21)
+survopp2.1$levels = rep(survJ, each=21)
 
 # calculate maxes and mins
 maxlamopp = apply(survopp2[,1:19], 2, max)
@@ -250,7 +251,7 @@ minlamopp = as.numeric(survopp2[1,1:19])
 maxsopp = survopp2[1:19,]
 for (i in 1:19) maxsopp[i,] = survopp2[which(survopp2[,i]==maxlamopp[i]),]
 
-summaryopp = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
+summaryopp = data.frame(levels = survJ, maxs=maxlamopp, p = maxsopp$p, ldiff=(maxlamopp-minlamopp))
 write.csv(summaryopp, file = "summary survivalsopp million1.csv")
 
 # Now lets have predation effect the adults AND have the adults be
@@ -267,7 +268,7 @@ survO = foreach (i=1:19, combine=cbind) %dopar% {
 }
 
 survO2 = as.data.frame(survO)
-names(survO2) = surv[,1]
+names(survO2) = survJ
 survO2$p = p
 
 maxlamO = apply(survO2[,1:19], 2, max)
@@ -275,7 +276,7 @@ minlamO = as.numeric(survO2[1,1:19])
 maxsO = survO2[1:19,]
 for (i in 1:19) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 
-summaryO = data.frame(levels = surv[,1]/(surv[,1]+surv[,2]), maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
+summaryO = data.frame(levels = survJ, maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
 write.csv(summaryO, file = "summary survivalsO million1.csv")
 
 
