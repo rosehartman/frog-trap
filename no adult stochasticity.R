@@ -5,6 +5,10 @@
 # but with all the adult survivals set at 0.5 for all environmental states
 
 
+# 'compositions' was pulled from CRAN, so I had to install the archived version:
+#library(devtools)
+#install_url("http://cran.r-project.org/src/contrib/Archive/compositions/compositions_1.30-2.tar.gz")
+
 # load required packages:
 library(popbio)
 library(compositions)
@@ -15,7 +19,7 @@ library(foreach)
 library(doParallel)
 # Noam, I don't know if your server has more cores, so register
 # however many it has here.
-registerDoParallel(cores=2)
+registerDoParallel(cores=23)
 
 #load the functions I have defined to run this puppy
 
