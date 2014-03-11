@@ -297,6 +297,6 @@ lamdifftot + scale_color_manual( values=c("red","blue","green","black"), labels 
 
 # save the resulting plot
 svg(filename="lamdiff_total1.svg", width=8, height=4)
-lamdiffO+ scale_y_continuous(limits=c(0, .35)) 
+lamdifftot+ scale_y_continuous(limits=c(0, .35)) 
 dev.off()
 
