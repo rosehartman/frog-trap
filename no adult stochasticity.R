@@ -18,7 +18,7 @@ library(foreach)
 library(doParallel)
 # Noam, I don't know if your server has more cores, so register
 # however many it has here.
-registerDoParallel(cores=23)
+registerDoParallel(cores=2)
 
 #load the functions I have defined to run this puppy
 
@@ -111,12 +111,12 @@ write.csv(summary1a, file="summary_million1.csv")
 # plot stochastic simulations
 e4a = ggplot(data=allresults2a, 
             aes(x=p, y=lambda))
-e4a = e4a+geom_line(aes(color=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
-  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1a, aes(x=mxp, y=max1, color=rate))
+e4a = e4a+geom_line(aes(linetype=rate)) + labs(y="population growth rate (logλs)", x="proportion of each year's total juveniles \n dispersing to the high predation patch")+
+  scale_y_continuous(limits=c(-.5, .25)) + geom_point(data=summary1a, aes(x=mxp, y=max1))
 e4a = e4a+ annotate("segment", x = mxp1[6], xend = mxp1[6], y = min1[1], yend = max1[6],
-                  colour = "black", lty=3) +
+                  colour = "grey", lty=1) +
   annotate("segment", x = 0, xend = 1, y = min1[1], yend = min1[1],
-           colour = "black", lty=3)
+           colour = "grey", lty=1)
 
 svg(filename="stochastic1.svg", width=6, height=4)
 
@@ -155,10 +155,10 @@ resultssynch2$rate = as.factor(rep(seq(0,1, by=.1), each=21))
 
 # plot  growth rates
 s = ggplot(data=resultssynch2[c(1:21, 43:63, 106:126, 169:189, 211:231),], 
-           aes(x=p, y=value, color=rate))
+           aes(x=p, y=value, linetype=rate))
 s = s+
-  geom_line() + labs(y="log lambda", x="proportion of juveniles \n dispersing to the high predation patch")+
-  ggtitle("stochastic growth rates with \n spatial synchrony") +scale_color_discrete(name="degree of \n autocorrellation")
+  geom_line() + labs(y="logλ", x="proportion of juveniles \n dispersing to the high predation patch")+
+  scale_linetype_discrete(name="degree of \n autocorrellation")
 
 s 
 
@@ -280,6 +280,17 @@ minlamO = as.numeric(survO2[1,1:19])
 maxsO = survO2[1:19,]
 for (i in 1:19) maxsO[i,] = survO2[which(survO2[,i]==maxlamO[i]),]
 
+surv = data.frame(J=rep(1, 19), a=rep(1, 19))
+for(i in 1:19) {
+  J = states[,1]*survJ[i] # increase or decrease J by a set amount
+  a = rep((-geometricmean(J)/0.00489 +1), length(J))  # change adult survival so life span remains constant
+  surv$J[i] = geometricmean(J)
+  surv$a[i] =a[1]
+}
+
+# calculate proportion of average life span due to juvenile survival
+surv$prop = surv$J/0.00489
+
 summaryO = data.frame(levels = survJ, maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
 write.csv(summaryO, file = "summary survivalsO million1.csv")
 
@@ -291,12 +302,12 @@ summaryopp$scenario = rep("3", nrow(summaryopp))
 summaryO$scenario = rep("4", nrow(summaryO))
 summarytotal = rbind(summary, summaryads, summaryopp, summaryO)
 summarytotal$scenario = as.factor(summarytotal$scenario)
+summarytotal$prop = rep(surv$prop, 4)
 
-lamdifftot = qplot(levels, ldiff, data = summarytotal, geom="line", color=scenario, xlab="proportional investment in juveniles", ylab= "δlogλ_sMAX")
-lamdifftot + scale_color_manual( values=c("red","blue","green","black"), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
+lamdifftot = qplot(prop, ldiff, data = summarytotal, geom="line", linetype=scenario, xlab="proportional investment in juveniles", ylab= "δlogλ_sMAX")
+lamdifftot = lamdifftot + scale_y_continuous(limits=c(0, .35)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
 
 # save the resulting plot
-svg(filename="lamdiff_total1.svg", width=8, height=4)
-lamdifftot+ scale_y_continuous(limits=c(0, .35)) 
+svg(filename="lamdiff_total1.svg", width=7, height=4)
+lamdifftot+ scale_y_continuous(limits=c(0, .30)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
 dev.off()
-
