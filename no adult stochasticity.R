@@ -89,11 +89,11 @@ resultsStoch = ldply(pred, function(pred2){
 # Organize the output and save it                   
 allresults = data.frame(t(rbind(resultsStoch, p)))
 names(allresults) = c(pred,"p")
-write.csv(allresults, file = "twostage_million1.csv")
+write.csv(allresults, file = "twostage_million2.csv")
 
 # get the dataframe into a format ggplot will like
 allresults2a = melt(allresults, id.vars="p", variable.name= "predation", value.name="lambda")
-allresults2a$rate = c(NA, 252)
+allresults2a$rate = rep(NA, 147)
 allresults2a$rate = rep(6:1, each=21)
 allresults2a$rate = ordered(allresults2a$rate, levels=c(1:6) ,
                            labels = rev(c("100%", "80%", "60%", "40%", "20%", "0%")))
@@ -106,7 +106,7 @@ mxp1 = c(1:6)
 for (i in 1:6) mxp1[i] = allresults[which(allresults[,(i)]==max1[i]),7]
 
 summary1a = data.frame(mxp=mxp1, max=max1, rate=c("100%", "80%", "60%", "40%", "20%", "0%"))
-write.csv(summary1a, file="summary_million1.csv")
+write.csv(summary1a, file="summary_million2.csv")
 
 # plot stochastic simulations
 e4a = ggplot(data=allresults2a, 
