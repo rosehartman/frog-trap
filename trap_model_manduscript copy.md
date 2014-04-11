@@ -50,18 +50,20 @@ These lakes were historically fishless, but humans have introduced fish into som
 
 We represent this system with a two-patch metapopulation model with two life stages (juveniles and adults). Adults survive at rate $S$, reproduce at rate $f$ and and juveniles recruit at patch-dependent rates $J_i$. Juvenile recruitment rates in each patch are  stochastic, with standard deviation $\sigma_{Ji}$
 
-One patch is an ecological trap with introduced fish ("predator patch"), and one is undisturbed ("predator-free patch"). Predators reduce juvenile recruitment by a factor of $(1-p)$. We consider predation pressure as an exogenous variable; though fish have a large effect on frog populations, frog larvae make up a very small percentage of fish diet so are unlikely to effect fish abundance (Joseph et al. 2011). Predation does not affect adult survival. For a single patch $i$, the population projection matrix is:
+One patch is an ecological trap with introduced fish ("predator patch"), and one is undisturbed ("predator-free patch"). Predators reduce juvenile recruitment by a factor of $(1-p)$. We consider predation pressure as an exogenous variable; though fish have a large effect on frog populations, frog larvae make up a very small percentage of fish diet so are unlikely to effect fish abundance (Joseph et al. 2011). Predation does not affect adult survival. For a single patch $i$ with predation, the population projection matrix is:
 
 $$B_i = \begin{bmatrix} 
           0 & f_1 \\
           J_i (1-p) & S_i 
         \end{bmatrix}$$
+        
+In the absence of predation, the $(1-p)$ term is removed.
 
 We simplify the active process of habitat choice by individuals into a set fraction of individuals dispersing passively to each patch. All juveniles disperse, and a proportion of juveniles $d$ settle in patch with predation. Juveniles are the only dispersing stage, and become adults once they settle in their destination patch. The dispersal matrix for the juvenile stage in a two-patch system is:
 
 $$M_J = \begin{bmatrix}
-          d & d-1 \\
-          d-1 & d
+          d & 1-d \\
+          1-d & d
         \end{bmatrix}$$
 
 Combining these two matrices, the metapopulation projection matrix $A$ for a system where demography occurs before dispersal is (adapted from Hunter and Caswell 2005):
@@ -119,7 +121,7 @@ To accompany our stochastic simulations, we analyzed the model, calculating stoc
 
 $$\log \lambda_s = \log \hat \lambda_d - \frac{1}{2} \left(\frac{\tau}{\hat {\lambda_d}}\right)^2$$ $$\tau^2 = \sum_i \sum_j \rho_{i,j} \sigma_i \sigma_j s_i s_j$$
 
-where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, $s$ are the sensitivities of $\hat \lambda_d$ to each parameter, and $\rho_{ij}$ the cross-parameter correlations. Tuljapurkar's approximation assumes small noise, but has been shown to be robust
+where $\hat\lambda_d$ is the deterministic growth rate of the mean growth matrix, $i$ and $j$ are each of the parameters, $\sigma$ are the standard deviations of stochastic parameters, $s$ are the sensitivities of $\hat \lambda_d$ to each parameter, and $\rho_{ij}$ the cross-parameter correlations. Tuljapurkar's approximation assumes small noise, but has been shown to be robust (Fieberg and Ellner 2001).
 
 For simplicity, in our analytic examinations we assume that $J_1 = J_2 = J$, and $\sigma_{J_1} = \sigma_{J_2} = \sigma_J$. These changes do not have qualitative effects on our results.
 
@@ -262,6 +264,8 @@ Delibes, M., P. Gaona, and P. Ferreras. 2001b. Effects of an attractive sink lea
 Donovan, T. M. and F. R. Thompson. 2001. Modeling the ecological trap hypothesis: a habitat and demographic analysis for migrant songbirds. Ecological Applications 11:871-882.
 
 Dwernychuk, L. W. and D. A. Boag. 1972. Ducks nesting in association with gulls‚ an ecological trap? Canadian Journal of Zoology 50:559-563.
+
+Fieberg, J., and S. P. Ellner. 2001. Stochastic matrix models for conservation and management: a comparative review of methods. Ecology Letters 4:244–266.
 
 Garwood, J. 2009. Spatial ecology of the Cascades frog: identifying dispersal, migration and resource uses at multiple spatial scales. Humboldt State University, Arcata, CA.
 
