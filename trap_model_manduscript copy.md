@@ -1,5 +1,5 @@
 ---
-layout: review, 11pt
+layout: preprint, 11pt
 title: "Building a better frog trap: The benefits of mal-adaptive habitat choice for metapopulations with different life history strategies"
 author: 
   - name: Rosemary Hartman
@@ -92,7 +92,7 @@ Table: Vital rates for each life stage in a given environmental state. Juvenile 
 
 All simulations were performed in R (R Core Team 2013), with some analyses using the popbio library (Stubben and Milligan, 2007). All code and simulated data are available at <https://github.com/rosehartman/frog-trap>.
 
-Dispersal and Growth
+# Dispersal and Growth
 
 ##Deterministic Growth
 
@@ -198,7 +198,7 @@ Differences in life history change the magnitude of $\delta \log \lambda_{sMAX}$
 
 ![The gain from optimal dispersal towards the predation patch ($\delta \log \lambda_{sMAX}$) across different life histories.  In the baseline case (juvenile dispersal and predation on juveniles, solid lone), the gain increases with greater investment in juvenile survival.  With predation on adults rather than juveniles (dotted line), there is a greater relative gain to be had by optimal dispersion towards the predation patch, again increasing with investment in juvenile survival.  When adults disperse and but juveniles are preyed upon (dash-dot lines), the pattern is reversed, though $\log \lambda_{sMAX}$ is always low.  When adults disperse and are preyed upon (dashed line), $\log \lambda_{sMAX} = 0$ in all cases.](figures/lamdiff_total1.png)
 
-# Discussion:
+# Discussion
 
 ##The value of ecological traps
 
