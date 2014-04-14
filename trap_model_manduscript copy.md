@@ -18,6 +18,8 @@ address:
     address: | 
       Department of Environmental Science and Policy,
       University of California-Davis
+keywords: [ecological traps, life history, stochastic dynamics, metapopulations, Rana cascadae]
+mantype: article
 abstract: | 
       By spatially distributing offspring among several habitat patches in varying environments, an organism can "hedge its bets" to protect against bad conditions in any single patch. This strategy can maintain populations even when some or even all locations are, on average, population sinks. However, species may not have evolved this bet-hedging mechanism, especially when sink environments are anthropogenic "traps" - locations where traditional habitat cues have been altered. Using a model based on the life history of the Cascades frog (*Rana cascadae*), we examine the conditions that maximize growth in an environment with ecological traps created by the introduction of predators. In a temporally stochastic environment, maximum growth rates occur when some juveniles disperse to the trap. We then examine how different life histories and predation regimes affect the ability of an organism gain an advantage by bet-hedging, and find that bet-hedging can be less useful when the ecological trap drives adult, rather than juvenile, mortality.
 
