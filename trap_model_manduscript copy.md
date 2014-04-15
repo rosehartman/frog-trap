@@ -1,5 +1,5 @@
 ---
-layout: preprint, 11pt
+layout: review, 11pt
 title: "Building a better frog trap: The benefits of mal-adaptive habitat choice for metapopulations with different life history strategies"
 author: 
   - name: Rosemary Hartman
