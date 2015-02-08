@@ -294,7 +294,6 @@ surv$prop = surv$J/0.00489
 summaryO = data.frame(levels = survJ, maxs=maxlamO, p = maxsO$p, ldiff=(maxlamO-minlamO))
 write.csv(summaryO, file = "summary survivalsO million1.csv")
 
-
 # Add the data from the different scenarios together and plot them
 summary$scenario = rep("1", nrow(summary))
 summaryads$scenario = rep("2",nrow(summaryads))
@@ -305,9 +304,25 @@ summarytotal$scenario = as.factor(summarytotal$scenario)
 summarytotal$prop = rep(surv$prop, 4)
 
 lamdifftot = qplot(prop, ldiff, data = summarytotal, geom="line", linetype=scenario, xlab="proportional investment in juveniles", ylab= "δlogλ_sMAX")
-lamdifftot = lamdifftot + scale_y_continuous(limits=c(0, .35)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
+lamdifftot = lamdifftot + scale_y_continuous(limits=c(0, .35)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predation on adults"))
 
 # save the resulting plot
 svg(filename="lamdiff_total1.svg", width=7, height=4)
-lamdifftot+ scale_y_continuous(limits=c(0, .30)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predtion on adults"))
+lamdifftot+ scale_y_continuous(limits=c(0, .30)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predation on adults"))
+dev.off()
+
+#Plot it in terms of increasing adult survival
+surv$propA = (1-surv$prop)
+summarytotal$propA = rep(surv$propA, 4)
+
+lamdifftot2 = qplot(propA, ldiff, data = summarytotal, geom="line", linetype=scenario, xlab="proportion of average life span \n due to adult survival", ylab= "δlogλ_sMAX")
+lamdifftot2 = lamdifftot2 + scale_y_continuous(limits=c(0, .35)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predation on adults"))
+
+# save the resulting plot
+svg(filename="lamdiff_total2.svg", width=7, height=4)
+lamdifftot2+ scale_y_continuous(limits=c(0, .30)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predation on adults"))
+dev.off()
+
+svg(filename="lamdiff_total2.svg", width=7, height=4)
+lamdifftot2+ scale_y_continuous(limits=c(0, .30)) + scale_linetype_manual( values=c(1,2,3,6), labels = c("juvenile dispersal, \n predation on juveniles", "juvenile dispersal, \n predation on adults", "adult dispersal, \n predation on juveniles", "adult dispersal, \n predation on adults"))
 dev.off()
